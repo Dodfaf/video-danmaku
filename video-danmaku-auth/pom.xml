@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.videodanmaku</groupId>
+    <artifactId>video-danmaku-auth</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>video-danmaku-auth-api</module>
+        <module>video-danmaku-auth-application</module>
+        <module>video-danmaku-auth-domain</module>
+        <module>video-danmaku-auth-infra</module>
+        <module>video-danmaku-auth-common</module>
+        <module>video-danmaku-auth-starter</module>
+        <module>video-danmaku-auth-application/video-danmaku-auth-application-controller</module>
+        <module>video-danmaku-auth-application/video-danmaku-auth-application-job</module>
+        <module>video-danmaku-auth-application/video-danmaku-auth-application-mq</module>
+    </modules>
+
+
+</project>
