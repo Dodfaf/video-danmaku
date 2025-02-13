@@ -1,0 +1,32 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    username: root
+    password: FLGxEaU5ieSprZzkcFs0eyyxpu63x6Y77d5s+oZIFskkLiyP7pYGSMQ2qkcL27UeRR83TiFPpssoOrRIT04pTw==
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://8.138.157.71:3306/video_danmaku
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 20
+      min-idle: 20
+      connectionProperties: config.decrypt=true;config.decrypt.key=${publicKey};
+      max-active: 100
+      max-wait: 60000
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: root
+        login-password: 123456
+      filter:
+        stat:
+          enabled: true
+          slow-sql-millis: 2000
+          log-slow-sql: true
+        wall:
+          enabled: true
+        config:
+          enabled: true
+publicKey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAKaXdtEpmNNBAasJDmokgw5TGzwRmYMKkmensp4/e16O2HEQa0L+ROgctC2Jf0iBverZBS4XTCizmHMCrv5BnxUCAwEAAQ==
+
+
