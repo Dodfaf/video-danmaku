@@ -1,4 +1,4 @@
-package com.videodanmaku.auth.common.enums;
+package com.videodanmaku.common.enums;
 
 import lombok.Getter;
 

@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.videodanmaku</groupId>
-        <artifactId>video-danmaku-auth</artifactId>
+        <artifactId>video-danmaku-video</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>video-danmaku-auth-domain</artifactId>
+    <artifactId>video-danmaku-video-domain</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -32,12 +32,12 @@
     <dependencies>
         <dependency>
             <groupId>com.videodanmaku</groupId>
-            <artifactId>video-danmaku-auth-infra</artifactId>
+            <artifactId>video-danmaku-video-infra</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.videodanmaku</groupId>
-            <artifactId>video-danmaku-auth-common</artifactId>
+            <artifactId>video-danmaku-video-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

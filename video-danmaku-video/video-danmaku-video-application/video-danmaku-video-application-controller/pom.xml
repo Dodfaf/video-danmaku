@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.videodanmaku</groupId>
-        <artifactId>video-danmaku-auth</artifactId>
+        <artifactId>video-danmaku-video</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>video-danmaku-auth-application-controller</artifactId>
+    <artifactId>video-danmaku-video-application-controller</artifactId>
 
 
     <dependencies>
@@ -28,15 +28,13 @@
 
         <dependency>
             <groupId>com.videodanmaku</groupId>
-            <artifactId>video-danmaku-auth-infra</artifactId>
+            <artifactId>video-danmaku-video-infra</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
-        <!-- Sa-Token 权限认证，在线文档：https://sa-token.cc -->
         <dependency>
-            <groupId>cn.dev33</groupId>
-            <artifactId>sa-token-spring-boot-starter</artifactId>
-            <version>1.40.0</version>
+            <groupId>com.videodanmaku</groupId>
+            <artifactId>video-danmaku-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
 
     </dependencies>

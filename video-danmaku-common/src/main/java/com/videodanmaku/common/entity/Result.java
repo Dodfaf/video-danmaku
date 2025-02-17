@@ -1,6 +1,6 @@
-package com.videodanmaku.auth.common.entity;
+package com.videodanmaku.common.entity;
 
-import com.videodanmaku.auth.common.enums.ResultCodeEnum;
+import com.videodanmaku.common.enums.ResultCodeEnum;
 import lombok.Data;
 
 @Data
