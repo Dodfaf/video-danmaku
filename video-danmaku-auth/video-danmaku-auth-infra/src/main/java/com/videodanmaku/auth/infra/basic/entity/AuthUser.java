@@ -4,52 +4,78 @@ import java.util.Date;
 import java.io.Serializable;
 
 /**
- * (AuthUser)实体类
+ * 用户信息表(AuthUser)实体类
  *
  * @author makejava
- * @since 2025-02-12 23:11:44
+ * @since 2025-02-18 11:38:06
  */
-
-
 public class AuthUser implements Serializable {
-    private static final long serialVersionUID = -78349252557811064L;
-
-    private Long id;
-
+    private static final long serialVersionUID = -39206367286101534L;
+/**
+     * 主键
+     */
+    private Integer id;
+/**
+     * 账户名
+     */
     private String userName;
-
-    private String nickName;
-
-    private String sex;
-
-    private String phone;
-
-    private String email;
-
+/**
+     * 状态0启用 1禁用
+     */
     private Integer status;
-
-    private String password;
-
+/**
+     * 头像
+     */
     private String avatar;
-
+/**
+     * 昵称
+     */
+    private String nickName;
+/**
+     * 邮箱
+     */
+    private String email;
+/**
+     * 手机号
+     */
+    private String phone;
+/**
+     * 密码
+     */
+    private String password;
+/**
+     * 性别 0男 1女
+     */
+    private Integer sex;
+/**
+     * 简介
+     */
     private String introduce;
-
+/**
+     * 创建人
+     */
     private String createBy;
-
+/**
+     * 创建时间
+     */
     private Date createTime;
-
-    private Date updateBy;
-
+/**
+     * 更新人
+     */
+    private String updateBy;
+/**
+     * 更新时间
+     */
     private Date updateTime;
 
     private Integer isDeleted;
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -61,28 +87,28 @@ public class AuthUser implements Serializable {
         this.userName = userName;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public String getNickName() {
         return nickName;
     }
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getEmail() {
@@ -93,12 +119,12 @@ public class AuthUser implements Serializable {
         this.email = email;
     }
 
-    public Integer getStatus() {
-        return status;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getPassword() {
@@ -109,12 +135,12 @@ public class AuthUser implements Serializable {
         this.password = password;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public Integer getSex() {
+        return sex;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setSex(Integer sex) {
+        this.sex = sex;
     }
 
     public String getIntroduce() {
@@ -141,11 +167,11 @@ public class AuthUser implements Serializable {
         this.createTime = createTime;
     }
 
-    public Date getUpdateBy() {
+    public String getUpdateBy() {
         return updateBy;
     }
 
-    public void setUpdateBy(Date updateBy) {
+    public void setUpdateBy(String updateBy) {
         this.updateBy = updateBy;
     }
 

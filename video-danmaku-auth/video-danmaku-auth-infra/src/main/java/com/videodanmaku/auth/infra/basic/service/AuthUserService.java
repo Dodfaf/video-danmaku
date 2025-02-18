@@ -1,13 +1,14 @@
 package com.videodanmaku.auth.infra.basic.service;
 
 import com.videodanmaku.auth.infra.basic.entity.AuthUser;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 /**
- * (AuthUser)表服务接口
+ * 用户信息表(AuthUser)表服务接口
  *
  * @author makejava
- * @since 2025-02-12 23:11:44
+ * @since 2025-02-18 11:38:06
  */
 public interface AuthUserService {
 
@@ -17,8 +18,16 @@ public interface AuthUserService {
      * @param id 主键
      * @return 实例对象
      */
-    AuthUser queryById(Long id);
+    AuthUser queryById(Integer id);
 
+    /**
+     * 分页查询
+     *
+     * @param authUser 筛选条件
+     * @param pageRequest      分页对象
+     * @return 查询结果
+     */
+    Page<AuthUser> queryByPage(AuthUser authUser, PageRequest pageRequest);
 
     /**
      * 新增数据
@@ -42,6 +51,6 @@ public interface AuthUserService {
      * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(Long id);
+    boolean deleteById(Integer id);
 
 }

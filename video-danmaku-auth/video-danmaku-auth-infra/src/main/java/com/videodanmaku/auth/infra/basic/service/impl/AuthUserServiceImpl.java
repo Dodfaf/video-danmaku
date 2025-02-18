@@ -4,15 +4,17 @@ import com.videodanmaku.auth.infra.basic.entity.AuthUser;
 import com.videodanmaku.auth.infra.basic.mapper.AuthUserDao;
 import com.videodanmaku.auth.infra.basic.service.AuthUserService;
 import org.springframework.stereotype.Service;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
 
 /**
- * (AuthUser)表服务实现类
+ * 用户信息表(AuthUser)表服务实现类
  *
  * @author makejava
- * @since 2025-02-12 23:11:44
+ * @since 2025-02-18 11:38:06
  */
 @Service("authUserService")
 public class AuthUserServiceImpl implements AuthUserService {
@@ -26,11 +28,22 @@ public class AuthUserServiceImpl implements AuthUserService {
      * @return 实例对象
      */
     @Override
-    public AuthUser queryById(Long id) {
+    public AuthUser queryById(Integer id) {
         return this.authUserDao.queryById(id);
     }
 
-
+    /**
+     * 分页查询
+     *
+     * @param authUser 筛选条件
+     * @param pageRequest      分页对象
+     * @return 查询结果
+     */
+    @Override
+    public Page<AuthUser> queryByPage(AuthUser authUser, PageRequest pageRequest) {
+        long total = this.authUserDao.count(authUser);
+        return new PageImpl<>(this.authUserDao.queryAllByLimit(authUser, pageRequest), pageRequest, total);
+    }
 
     /**
      * 新增数据
@@ -63,7 +76,7 @@ public class AuthUserServiceImpl implements AuthUserService {
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Long id) {
+    public boolean deleteById(Integer id) {
         return this.authUserDao.deleteById(id) > 0;
     }
 }

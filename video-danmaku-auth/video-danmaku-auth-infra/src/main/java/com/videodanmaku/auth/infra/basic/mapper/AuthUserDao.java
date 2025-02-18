@@ -1,20 +1,16 @@
 package com.videodanmaku.auth.infra.basic.mapper;
 
 import com.videodanmaku.auth.infra.basic.entity.AuthUser;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.context.annotation.Bean;
-
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 /**
- * (AuthUser)表数据库访问层
+ * 用户信息表(AuthUser)表数据库访问层
  *
  * @author makejava
- * @since 2025-02-12 23:11:42
+ * @since 2025-02-18 11:38:06
  */
-
-
 public interface AuthUserDao {
 
     /**
@@ -23,8 +19,16 @@ public interface AuthUserDao {
      * @param id 主键
      * @return 实例对象
      */
-    AuthUser queryById(Long id);
+    AuthUser queryById(Integer id);
 
+    /**
+     * 查询指定行数据
+     *
+     * @param authUser 查询条件
+     * @param pageable         分页对象
+     * @return 对象列表
+     */
+    List<AuthUser> queryAllByLimit(AuthUser authUser, @Param("pageable") Pageable pageable);
 
     /**
      * 统计总行数
@@ -73,7 +77,7 @@ public interface AuthUserDao {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(Long id);
+    int deleteById(Integer id);
 
 }
 
