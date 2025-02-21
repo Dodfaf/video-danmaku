@@ -39,7 +39,7 @@ public class DruidUtil {
     }
 
     public static void main(String[] args) throws Exception {
-        String encrypt = encrypt("sfjuw5Sj@dzl_m");
+        String encrypt = encrypt("xdf_danmakuvideo");
         System.out.println("encrypt: " + encrypt);
 
     }

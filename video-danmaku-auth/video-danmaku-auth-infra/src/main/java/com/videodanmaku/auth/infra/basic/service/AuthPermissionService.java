@@ -1,16 +1,16 @@
 package com.videodanmaku.auth.infra.basic.service;
 
-import com.videodanmaku.auth.infra.basic.entity.AuthUser;
+import com.videodanmaku.auth.infra.basic.entity.AuthPermission;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 /**
- * 用户信息表(AuthUser)表服务接口
+ * 权限表(AuthPermission)表服务接口
  *
  * @author makejava
- * @since 2025-02-18 11:38:06
+ * @since 2025-02-20 21:47:36
  */
-public interface AuthUserService {
+public interface AuthPermissionService {
 
     /**
      * 通过ID查询单条数据
@@ -18,35 +18,32 @@ public interface AuthUserService {
      * @param id 主键
      * @return 实例对象
      */
-    AuthUser queryById(Integer id);
-
-
-    AuthUser queryByUsername(String username);
+    AuthPermission queryById(Long id);
 
     /**
      * 分页查询
      *
-     * @param authUser 筛选条件
+     * @param authPermission 筛选条件
      * @param pageRequest      分页对象
      * @return 查询结果
      */
-    Page<AuthUser> queryByPage(AuthUser authUser, PageRequest pageRequest);
+    Page<AuthPermission> queryByPage(AuthPermission authPermission, PageRequest pageRequest);
 
     /**
      * 新增数据
      *
-     * @param authUser 实例对象
+     * @param authPermission 实例对象
      * @return 实例对象
      */
-    Integer insert(AuthUser authUser);
+    AuthPermission insert(AuthPermission authPermission);
 
     /**
      * 修改数据
      *
-     * @param authUser 实例对象
+     * @param authPermission 实例对象
      * @return 实例对象
      */
-    Integer update(AuthUser authUser);
+    AuthPermission update(AuthPermission authPermission);
 
     /**
      * 通过主键删除数据
@@ -54,6 +51,6 @@ public interface AuthUserService {
      * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer id);
+    boolean deleteById(Long id);
 
 }
