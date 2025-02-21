@@ -32,6 +32,11 @@ public class AuthUserServiceImpl implements AuthUserService {
         return this.authUserDao.queryById(id);
     }
 
+    @Override
+    public AuthUser queryByUsername(String username) {
+        return this.authUserDao.queryByUsername(username);
+    }
+
     /**
      * 分页查询
      *
@@ -52,9 +57,9 @@ public class AuthUserServiceImpl implements AuthUserService {
      * @return 实例对象
      */
     @Override
-    public AuthUser insert(AuthUser authUser) {
-        this.authUserDao.insert(authUser);
-        return authUser;
+    public Integer insert(AuthUser authUser) {
+        ;
+        return this.authUserDao.insert(authUser);
     }
 
     /**
@@ -64,9 +69,8 @@ public class AuthUserServiceImpl implements AuthUserService {
      * @return 实例对象
      */
     @Override
-    public AuthUser update(AuthUser authUser) {
-        this.authUserDao.update(authUser);
-        return this.queryById(authUser.getId());
+    public Integer update(AuthUser authUser) {
+        return this.authUserDao.update(authUser);
     }
 
     /**

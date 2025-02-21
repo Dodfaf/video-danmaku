@@ -22,7 +22,7 @@ public interface AuthUserDomainService {
      */
     Boolean delete(AuthUserBO authUserBO);
 
-    SaTokenInfo doLogin(String validCode);
+    SaTokenInfo doLogin(AuthUserBO authUserBO);
 
     AuthUserBO getUserInfo(AuthUserBO authUserBO);
 

@@ -28,6 +28,15 @@ id, user_name, status, avatar, nick_name, email, phone, password, sex, introduce
         where id = #{id}
     </select>
 
+    <select id="queryByUsername" resultMap="AuthUserMap">
+        select
+id, user_name, status, avatar, nick_name, email, phone, password, sex, introduce, create_by, create_time, update_by, update_time, is_deleted
+        from auth_user
+        where user_name = #{userName}
+    </select>
+
+
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="AuthUserMap">
         select

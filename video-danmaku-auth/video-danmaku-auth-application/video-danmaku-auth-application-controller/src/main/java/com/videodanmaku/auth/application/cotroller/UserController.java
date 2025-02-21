@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -37,20 +38,43 @@ public class UserController {
             return Result.fail("注册用户失败");
         }
     }
+    @RequestMapping("update")
+    public Result<Boolean> update(@RequestBody AuthUserDTO authUserDTO) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("UserController.update.dto:{}", JSON.toJSONString(authUserDTO));
+            }
+            checkUserInfo(authUserDTO);
+            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
+            return Result.ok(authUserDomainService.update(authUserBO));
+        } catch (Exception e) {
+            log.error("UserController.update.error:{}", e.getMessage(), e);
+            return Result.fail("更新用户信息失败");
+        }
+    }
+
+
+
 
 
 
     // 测试登录，浏览器访问： http://localhost:8081/user/doLogin?username=zhang&password=123456
     @RequestMapping("doLogin")
-    public String doLogin(String username, String password) {
-        System.out.println("进入");
-        // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
-        if("zhang".equals(username) && "123456".equals(password)) {
-            StpUtil.login(10002, 10);
-            System.out.println("login success");
-            return "登录成功";
+    public Result<Boolean> doLogin(@RequestBody AuthUserDTO authUserDTO) {
+
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("UserController.doLogin.dto:{}", JSON.toJSONString(authUserDTO));
+            }
+            checkUserInfo(authUserDTO);
+            Preconditions.checkArgument(!StringUtils.isBlank(authUserDTO.getPassword()), "密码不能为空！");
+            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
+            return Result.ok(authUserDomainService.doLogin(authUserBO));
+        } catch (Exception e) {
+            log.error("UserController.doLogin.error:{}", e.getMessage(), e);
+            return Result.fail("用户登录失败！");
         }
-        return "登录失败";
+
     }
 
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
