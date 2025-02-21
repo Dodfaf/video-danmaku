@@ -77,6 +77,23 @@ public class UserController {
 
     }
 
+    /**
+     * 用户退出
+     */
+    @RequestMapping("logOut")
+    public Result logOut(@RequestParam String userName) {
+        try {
+            log.info("UserController.logOut.userName:{}", userName);
+            Preconditions.checkArgument(!StringUtils.isBlank(userName), "用户名不能为空");
+            StpUtil.logout(userName);
+            return Result.ok();
+        } catch (Exception e) {
+            log.error("UserController.logOut.error:{}", e.getMessage(), e);
+            return Result.fail("用户登出失败");
+        }
+    }
+
+
     // 查询登录状态，浏览器访问： http://localhost:8081/user/isLogin
     @RequestMapping("isLogin")
     public String isLogin() {
@@ -86,5 +103,54 @@ public class UserController {
     public void checkUserInfo(AuthUserDTO authUserDTO){
         Preconditions.checkArgument(!StringUtils.isBlank(authUserDTO.getUserName()), "用户名不能为空！");
     }
+
+    @RequestMapping("getUserInfo")
+    public Result<Boolean> getUserInfo(@RequestBody AuthUserDTO authUserDTO) {
+
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("UserController.getUserInfo.dto:{}", JSON.toJSONString(authUserDTO));
+            }
+            checkUserInfo(authUserDTO);
+            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
+            AuthUserBO userInfo = authUserDomainService.getUserInfo(authUserBO);
+            return Result.ok(AuthUserDTOConverter.INSTANCE.convertBOToDTO(userInfo));
+        } catch (Exception e) {
+            log.error("UserController.getUserInfo.error:{}", e.getMessage(), e);
+            return Result.fail("获取用户信息失败！");
+        }
+
+    }
+    @RequestMapping("changeUserStatus")
+    public Result<Boolean> changeUserStatus(@RequestBody AuthUserDTO authUserDTO) {
+
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("UserController.changeUserStatus.dto:{}", JSON.toJSONString(authUserDTO));
+            }
+            checkUserInfo(authUserDTO);
+            Preconditions.checkNotNull(authUserDTO.getStatus(), "用户状态不能为空");
+            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
+            return Result.ok(authUserDomainService.update(authUserBO));
+        } catch (Exception e) {
+            log.error("UserController.changeUserStatus.error:{}", e.getMessage(), e);
+            return Result.fail("更新用户状态失败！");
+        }
+    }
+    @RequestMapping("delete")
+    public Result<Boolean> delete(@RequestBody AuthUserDTO authUserDTO) {
+
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("UserController.changeUserStatus.dto:{}", JSON.toJSONString(authUserDTO));
+            }
+            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
+            return Result.ok(authUserDomainService.delete(authUserBO));
+        } catch (Exception e) {
+            log.error("UserController.changeUserStatus.error:{}", e.getMessage(), e);
+            return Result.fail("删除用户失败！");
+        }
+    }
+
 
 }

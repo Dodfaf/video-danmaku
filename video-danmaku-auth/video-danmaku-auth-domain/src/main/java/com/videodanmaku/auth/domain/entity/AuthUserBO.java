@@ -55,6 +55,8 @@ public class AuthUserBO implements Serializable {
     private String introduce;
 
 
+    private Integer isDeleted;
+
 
 
 

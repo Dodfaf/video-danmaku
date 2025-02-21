@@ -71,7 +71,9 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
 
     @Override
     public Boolean delete(AuthUserBO authUserBO) {
-        return null;
+        AuthUser user = AuthUserBOConverter.INSTANCE.convertBOToEntity(authUserBO);
+        user.setIsDeleted(IsDeletedFlagEnum.DELETED.getCode());
+        return authUserService.update(user) > 0;
     }
 
     @Override
@@ -130,12 +132,12 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
     }
     @Override
     public AuthUserBO getUserInfo(AuthUserBO authUserBO) {
-        String name = authUserBO.getUserName();
-        Preconditions.checkArgument(!StringUtils.isBlank(name), "用户名不能为空");
         AuthUser user = authUserService.queryByUsername(authUserBO.getUserName());
-
-        return null;
+        user.setPassword("");
+        return AuthUserBOConverter.INSTANCE.convertEntityToBO(user);
     }
+
+
 
     @Override
     public List<AuthUserBO> listUserInfoByIds(List<String> ids) {
