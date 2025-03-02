@@ -81,11 +81,11 @@ public class UserController {
      * 用户退出
      */
     @RequestMapping("logOut")
-    public Result logOut(@RequestParam String userName) {
+    public Result logOut(@RequestParam Integer id) {
         try {
-            log.info("UserController.logOut.userName:{}", userName);
-            Preconditions.checkArgument(!StringUtils.isBlank(userName), "用户名不能为空");
-            StpUtil.logout(userName);
+//            log.info("UserController.logOut.userName:{}", userName);
+//            Preconditions.checkArgument(!StringUtils.isBlank(userName), "用户名不能为空");
+            StpUtil.logout(id);
             return Result.ok();
         } catch (Exception e) {
             log.error("UserController.logOut.error:{}", e.getMessage(), e);
@@ -111,7 +111,7 @@ public class UserController {
             if (log.isInfoEnabled()) {
                 log.info("UserController.getUserInfo.dto:{}", JSON.toJSONString(authUserDTO));
             }
-            checkUserInfo(authUserDTO);
+//            checkUserInfo(authUserDTO);
             AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
             AuthUserBO userInfo = authUserDomainService.getUserInfo(authUserBO);
             return Result.ok(AuthUserDTOConverter.INSTANCE.convertBOToDTO(userInfo));

@@ -3,6 +3,19 @@ server:
 spring:
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: "http://localhost:5173" # 允许的前端地址
+            allowed-methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowed-headers: "*"
+            allow-credentials: true
+            max-age: 3600
       routes:
         - id: oss
           uri: lb://video-danmaku-oss-dev
@@ -14,6 +27,12 @@ spring:
           uri: lb://video-danmaku-auth-dev
           predicates:
             - Path=/auth/**
+          filters:
+            - StripPrefix=1
+        - id: video
+          uri: lb://video-danmaku-video-dev
+          predicates:
+            - Path=/videodisplay/**
           filters:
             - StripPrefix=1
 

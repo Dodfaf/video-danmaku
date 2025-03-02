@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.videodanmaku.video.infra.basic.dao.VideoTagDao">
+
+    <resultMap type="com.videodanmaku.video.infra.basic.entity.VideoTag" id="VideoTagMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="isPreset" column="is_preset" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="VideoTagMap">
+        select
+id, name, is_preset
+        from video_tag
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="VideoTagMap">
+        select
+id, name, is_preset
+        from video_tag
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="isPreset != null">
+                and is_preset = #{isPreset}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from video_tag
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="isPreset != null">
+                and is_preset = #{isPreset}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into video_tag(name, is_preset)
+        values (#{name}, #{isPreset})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into video_tag(name, is_preset)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.name}, #{entity.isPreset})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into video_tag(name, is_preset)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.isPreset})
+        </foreach>
+        on duplicate key update
+name = values(name),
+is_preset = values(is_preset)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update video_tag
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="isPreset != null">
+                is_preset = #{isPreset},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from video_tag where id = #{id}
+    </delete>
+
+</mapper>
+

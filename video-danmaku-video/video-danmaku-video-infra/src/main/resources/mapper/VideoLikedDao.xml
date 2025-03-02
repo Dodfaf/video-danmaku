@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.videodanmaku.video.infra.basic.mapper.VideoLikedDao">
+
+    <resultMap type="com.videodanmaku.video.infra.basic.entity.VideoLiked" id="VideoLikedMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="likeUserId" column="like_user_id" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="videoId" column="video_id" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="VideoLikedMap">
+        select
+id, like_user_id, status, video_id, create_by, create_time, update_by, update_time, is_deleted
+        from video_liked
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="VideoLikedMap">
+        select
+id, like_user_id, status, video_id, create_by, create_time, update_by, update_time, is_deleted
+        from video_liked
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="likeUserId != null">
+                and like_user_id = #{likeUserId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="videoId != null">
+                and video_id = #{videoId}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from video_liked
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="likeUserId != null">
+                and like_user_id = #{likeUserId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="videoId != null">
+                and video_id = #{videoId}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into video_liked(like_user_id, status, video_id, create_by, create_time, update_by, update_time, is_deleted)
+        values (#{likeUserId}, #{status}, #{videoId}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{isDeleted})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into video_liked(like_user_id, status, video_id, create_by, create_time, update_by, update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.likeUserId}, #{entity.status}, #{entity.videoId}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.isDeleted})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into video_liked(like_user_id, status, video_id, create_by, create_time, update_by, update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.likeUserId}, #{entity.status}, #{entity.videoId}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime}, #{entity.isDeleted})
+        </foreach>
+        on duplicate key update
+like_user_id = values(like_user_id),
+status = values(status),
+video_id = values(video_id),
+create_by = values(create_by),
+create_time = values(create_time),
+update_by = values(update_by),
+update_time = values(update_time),
+is_deleted = values(is_deleted)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update video_liked
+        <set>
+            <if test="likeUserId != null">
+                like_user_id = #{likeUserId},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="videoId != null">
+                video_id = #{videoId},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from video_liked where id = #{id}
+    </delete>
+
+</mapper>
+

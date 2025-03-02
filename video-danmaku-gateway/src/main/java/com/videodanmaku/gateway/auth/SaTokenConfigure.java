@@ -26,14 +26,14 @@ public class SaTokenConfigure {
             // 拦截地址 
             .addInclude("/**")    /* 拦截全部path */
             // 开放地址 
-            .addExclude("/favicon.ico")
+            .addExclude("/favicon.ico","/auth/user/register","/auth/user/doLogin")
             // 鉴权方法：每次访问进入 
             .setAuth(obj -> {
                 System.out.println("-------- 前端访问path：" + SaHolder.getRequest().getRequestPath());
 
                 // 登录校验 -- 拦截所有路由，并排除/user/doLogin 用于开放登录 
-                SaRouter.match("/**", "/auth/user/doLogin", r -> StpUtil.checkLogin());
-                
+//                SaRouter.match("/**", "/auth/user/doLogin", r -> StpUtil.checkLogin());
+
                 // 权限认证 -- 不同模块, 校验不同权限 
 //                SaRouter.match("/auth/user/**", r -> StpUtil.checkPermission("user"));
 //                SaRouter.match("/admin/**", r -> StpUtil.checkPermission("admin"));

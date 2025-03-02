@@ -89,6 +89,7 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
 
         // 2. 查询用户（可使用 Redis 缓存）
         AuthUser user = getUserFromCache(username);
+
         if (user == null) {
 //            recordFailedLogin(username); // 记录失败
             throw new RuntimeException("用户名或密码错误");
@@ -104,10 +105,8 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
         clearLoginFailCount(username);
 
         // 5. 记录登录状态，并返回 Token
-        StpUtil.login(username, 60 );
+        StpUtil.login(user.getId(), 60 );
         return StpUtil.getTokenInfo();
-
-
     }
     public boolean checkLoginAttempts(String username) {
         String redisKey = redisUtil.buildKey(LOGIN_FAIL_PREFIX, username) ;
@@ -130,11 +129,15 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
     public void clearLoginFailCount(String username) {
         redisUtil.del(LOGIN_FAIL_PREFIX + username);
     }
+
     @Override
     public AuthUserBO getUserInfo(AuthUserBO authUserBO) {
-        AuthUser user = authUserService.queryByUsername(authUserBO.getUserName());
-        user.setPassword("");
-        return AuthUserBOConverter.INSTANCE.convertEntityToBO(user);
+//        AuthUser user = authUserService.queryByUsername(authUserBO.getUserName());
+//        user.setPassword("");
+        AuthUser user1 = authUserService.queryById(authUserBO.getId());
+        user1.setPassword("");
+
+        return AuthUserBOConverter.INSTANCE.convertEntityToBO(user1);
     }
 
 
@@ -143,6 +146,7 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
     public List<AuthUserBO> listUserInfoByIds(List<String> ids) {
         return null;
     }
+
     private AuthUser getUserFromCache(String username) {
         String cacheKey = "user:info:" + username;
         AuthUser user = (AuthUser) redisTemplate.opsForValue().get(cacheKey);
