@@ -66,8 +66,17 @@ public class VideoInfoBO implements Serializable {
      * 是否删除
      */
     private Integer isDeleted;
+    /**
+     * 视频时长
+     */
+    private Integer duration;
 
-
+    private String description;
+    /**
+     * 播放量
+     *
+     */
+    private Integer views;
 
 
 }

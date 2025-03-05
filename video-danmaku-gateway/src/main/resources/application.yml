@@ -5,17 +5,29 @@ spring:
     gateway:
       globalcors:
         cors-configurations:
-          '[/**]':
-            allowed-origins: "http://localhost:5173" # 允许的前端地址
-            allowed-methods:
+          '[/**]': # 对所有路径生效
+            allowedOrigins: "http://localhost:5173" # 允许前端域名
+            allowedMethods:
               - GET
               - POST
               - PUT
               - DELETE
               - OPTIONS
-            allowed-headers: "*"
-            allow-credentials: true
-            max-age: 3600
+            allowedHeaders: "*" # 允许所有请求头，包括 satoken
+            exposedHeaders: # 暴露给前端的响应头（如需要）
+              - "satoken"
+            allowCredentials: true # 允许携带凭证（如 Cookie）
+#          '[/**]':
+#            allowed-origins: "http://localhost:5173" # 允许的前端地址
+#            allowed-methods:
+#              - GET
+#              - POST
+#              - PUT
+#              - DELETE
+#              - OPTIONS
+#            allowed-headers: "*"
+#            allow-credentials: true
+#            max-age: 3600
       routes:
         - id: oss
           uri: lb://video-danmaku-oss-dev

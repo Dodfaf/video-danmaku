@@ -36,6 +36,17 @@ public class GatewayExceptionHandler implements ErrorWebExceptionHandler {
             throwable.printStackTrace();
         }
         Result result = Result.fail(code, message);
+
+        // 设置响应头
+        response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
+        response.getHeaders().add("Access-Control-Allow-Origin", "http://localhost:5173");
+        response.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+        response.getHeaders().add("Access-Control-Allow-Headers", "*");
+        response.getHeaders().add("Access-Control-Expose-Headers", "satoken");
+        response.getHeaders().add("Access-Control-Allow-Credentials", "true");
+
+
+
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         return response.writeWith(Mono.fromSupplier(() -> {
             DataBufferFactory dataBufferFactory = response.bufferFactory();

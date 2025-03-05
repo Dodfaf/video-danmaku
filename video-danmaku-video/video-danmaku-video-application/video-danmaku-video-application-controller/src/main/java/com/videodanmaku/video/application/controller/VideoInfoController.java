@@ -1,4 +1,4 @@
-package com.videodanmaku.video.application.cotroller;
+package com.videodanmaku.video.application.controller;
 
 
 import com.alibaba.fastjson.JSON;
@@ -8,7 +8,6 @@ import com.videodanmaku.video.application.convert.VideoInfoDTOConverter;
 import com.videodanmaku.video.application.dto.VideoInfoDTO;
 import com.videodanmaku.video.domain.entity.VideoInfoBO;
 import com.videodanmaku.video.domain.service.VideoInfoDomainService;
-import com.videodanmaku.common.entity.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -100,7 +99,7 @@ public class VideoInfoController {
 //            Preconditions.checkNotNull(file, "上传视频不能为空！");
             VideoInfoBO videoInfoBO = VideoInfoDTOConverter.INSTANCE.convertDtoToBO(videoInfoDTO);
 
-            return Result.ok(videoInfoDomainService.uploadVideo(videoInfoBO, file));
+            return Result.ok(videoInfoDomainService.uploadVideo(videoInfoBO));
         }catch (Exception e){
             log.error("VideoInfoController.uploadVideo.error:{}", e.getMessage(), e);
             return Result.fail("上传视频失败");

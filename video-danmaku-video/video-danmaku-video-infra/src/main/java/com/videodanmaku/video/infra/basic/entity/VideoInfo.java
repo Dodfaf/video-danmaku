@@ -72,5 +72,14 @@ public class VideoInfo implements Serializable {
  */
     private Integer duration;
 
+    /**
+     * 视频简介
+     */
+    private String description;
+    /**
+     * 播放量
+     *
+     */
+    private Integer views;
 }
 

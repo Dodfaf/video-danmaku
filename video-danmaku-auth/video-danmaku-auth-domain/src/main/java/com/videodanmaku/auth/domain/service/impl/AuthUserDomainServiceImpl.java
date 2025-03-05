@@ -105,7 +105,7 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
         clearLoginFailCount(username);
 
         // 5. 记录登录状态，并返回 Token
-        StpUtil.login(user.getId(), 60 );
+        StpUtil.login(user.getId(), 60 * 60 * 24 ); //token一天有效
         return StpUtil.getTokenInfo();
     }
     public boolean checkLoginAttempts(String username) {

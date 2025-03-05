@@ -44,7 +44,7 @@ public class VideoInfoDomainServiceImpl implements VideoInfoDomainService {
     }
 
     @Override
-    public boolean uploadVideo(VideoInfoBO videoInfoBO, MultipartFile file) {
+    public boolean uploadVideo(VideoInfoBO videoInfoBO) {
 
         VideoInfo videoInfo = VideoInfoConverter.INSTANCE.convertBoToEntity(videoInfoBO);
         videoInfoService.insert(videoInfo);

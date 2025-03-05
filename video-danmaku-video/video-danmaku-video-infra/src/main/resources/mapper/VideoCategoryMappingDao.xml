@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.videodanmaku.video.infra.basic.mapper.VideoTagMappingDao">
+<mapper namespace="com.videodanmaku.video.infra.basic.mapper.VideoCategoryMappingDao">
 
-    <resultMap type="com.videodanmaku.video.infra.basic.entity.VideoTagMapping" id="VideoTagMappingMap">
+    <resultMap type="com.videodanmaku.video.infra.basic.entity.VideoCategoryMapping" id="VideoCategoryMappingMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="videoId" column="video_id" jdbcType="INTEGER"/>
-        <result property="tagId" column="tag_id" jdbcType="INTEGER"/>
-        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+        <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
+        <result property="idDeleted" column="id_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="VideoTagMappingMap">
+    <select id="queryById" resultMap="VideoCategoryMappingMap">
         select
-id, video_id, tag_id, is_deleted
-        from video_tag_mapping
+id, video_id, category_id, id_deleted
+        from video_category_mapping
         where id = #{id}
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="VideoTagMappingMap">
+    <select id="queryAllByLimit" resultMap="VideoCategoryMappingMap">
         select
-id, video_id, tag_id, is_deleted
-        from video_tag_mapping
+id, video_id, category_id, id_deleted
+        from video_category_mapping
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -29,11 +29,11 @@ id, video_id, tag_id, is_deleted
             <if test="videoId != null">
                 and video_id = #{videoId}
             </if>
-            <if test="tagId != null">
-                and tag_id = #{tagId}
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
             </if>
-            <if test="isDeleted != null">
-                and is_deleted = #{isDeleted}
+            <if test="idDeleted != null">
+                and id_deleted = #{idDeleted}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -42,7 +42,7 @@ id, video_id, tag_id, is_deleted
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
-        from video_tag_mapping
+        from video_category_mapping
         <where>
             <if test="id != null">
                 and id = #{id}
@@ -50,53 +50,53 @@ id, video_id, tag_id, is_deleted
             <if test="videoId != null">
                 and video_id = #{videoId}
             </if>
-            <if test="tagId != null">
-                and tag_id = #{tagId}
+            <if test="categoryId != null">
+                and category_id = #{categoryId}
             </if>
-            <if test="isDeleted != null">
-                and is_deleted = #{isDeleted}
+            <if test="idDeleted != null">
+                and id_deleted = #{idDeleted}
             </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into video_tag_mapping(video_id, tag_id, is_deleted)
-        values (#{videoId}, #{tagId}, #{isDeleted})
+        insert into video_category_mapping(video_id, category_id, id_deleted)
+        values (#{videoId}, #{categoryId}, #{idDeleted})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into video_tag_mapping(video_id, tag_id, is_deleted)
+        insert into video_category_mapping(video_id, category_id, id_deleted)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.videoId}, #{entity.tagId}, #{entity.isDeleted})
+        (#{entity.videoId}, #{entity.categoryId}, #{entity.idDeleted})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into video_tag_mapping(video_id, tag_id, is_deleted)
+        insert into video_category_mapping(video_id, category_id, id_deleted)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.videoId}, #{entity.tagId}, #{entity.isDeleted})
+            (#{entity.videoId}, #{entity.categoryId}, #{entity.idDeleted})
         </foreach>
         on duplicate key update
 video_id = values(video_id),
-tag_id = values(tag_id),
-is_deleted = values(is_deleted)
+category_id = values(category_id),
+id_deleted = values(id_deleted)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update video_tag_mapping
+        update video_category_mapping
         <set>
             <if test="videoId != null">
                 video_id = #{videoId},
             </if>
-            <if test="tagId != null">
-                tag_id = #{tagId},
+            <if test="categoryId != null">
+                category_id = #{categoryId},
             </if>
-            <if test="isDeleted != null">
-                is_deleted = #{isDeleted},
+            <if test="idDeleted != null">
+                id_deleted = #{idDeleted},
             </if>
         </set>
         where id = #{id}
@@ -104,7 +104,7 @@ is_deleted = values(is_deleted)
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from video_tag_mapping where id = #{id}
+        delete from video_category_mapping where id = #{id}
     </delete>
 
 </mapper>

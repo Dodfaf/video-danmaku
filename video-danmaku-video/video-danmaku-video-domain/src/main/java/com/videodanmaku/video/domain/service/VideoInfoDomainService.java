@@ -16,7 +16,7 @@ public interface VideoInfoDomainService {
 
     Page<VideoInfoBO> getUserVideoList(VideoInfoBO videoInfoBO,int page, int size);
 
-    boolean uploadVideo(VideoInfoBO videoInfoBO, MultipartFile file);
+    boolean uploadVideo(VideoInfoBO videoInfoBO);
 
     List<VideoInfo> getHomePageVideoList();
 }

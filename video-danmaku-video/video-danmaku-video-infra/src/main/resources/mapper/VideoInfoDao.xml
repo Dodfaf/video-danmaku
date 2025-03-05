@@ -22,7 +22,9 @@
     <!--查询单个-->
     <select id="queryById" resultMap="VideoInfoMap">
         select
-id, video_title, up_id, video_url, status, cover_url, likes, favorites, create_by, create_time, update_by, update_time, is_deleted, duration
+            id, video_title, up_id, video_url, status, cover_url, likes,
+            favorites, create_by, create_time, update_by, update_time,
+            is_deleted, duration,description, views
         from video_info
         where id = #{id}
     </select>
@@ -30,7 +32,7 @@ id, video_title, up_id, video_url, status, cover_url, likes, favorites, create_b
 <!--    获取随机视频-->
     <select id="getRandom" resultMap="VideoInfoMap">
         select
-            id, video_title, up_id, video_url, status, cover_url, likes, favorites, create_by, create_time
+            id, video_title, up_id, video_url, status, cover_url, likes, favorites, create_by, create_time,views
         from video_info
         WHERE id >= (
             SELECT FLOOR(RAND() * (SELECT MAX(id) FROM video_info))
@@ -42,7 +44,7 @@ id, video_title, up_id, video_url, status, cover_url, likes, favorites, create_b
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="VideoInfoMap">
         select
-id, video_title, up_id, video_url, status, cover_url, likes, favorites, create_by, create_time, update_by, update_time, is_deleted, duration
+id, video_title, up_id, video_url, status, cover_url, likes, favorites, create_by, create_time, update_by, update_time, is_deleted, duration, description, views
         from video_info
         <where>
             <if test="videoInfo.id != null">
@@ -143,8 +145,8 @@ id, video_title, up_id, video_url, status, cover_url, likes, favorites, create_b
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into video_info(video_title, up_id, video_url, status, cover_url, likes, favorites, create_by, create_time, update_by, update_time, is_deleted, duration)
-        values (#{videoTitle}, #{upId}, #{videoUrl}, #{status}, #{coverUrl}, #{likes}, #{favorites}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{isDeleted}, #{duration})
+        insert into video_info(video_title, up_id, video_url, status, cover_url, likes, favorites, create_by, create_time, update_by, update_time, is_deleted, duration, description)
+        values (#{videoTitle}, #{upId}, #{videoUrl}, #{status}, #{coverUrl}, #{likes}, #{favorites}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime}, #{isDeleted}, #{duration}, #{description})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
@@ -219,6 +221,9 @@ id, video_title, up_id, video_url, status, cover_url, likes, favorites, create_b
             </if>
             <if test="duration != null">
                 duration = #{duration},
+            </if>
+            <if test="description != null">
+                description = #{description},
             </if>
         </set>
         where id = #{id}

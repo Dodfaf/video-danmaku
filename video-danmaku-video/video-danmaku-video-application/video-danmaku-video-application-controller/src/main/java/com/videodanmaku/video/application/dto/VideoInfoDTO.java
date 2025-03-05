@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 视频信息表(VideoInfo)实体类
@@ -65,8 +66,17 @@ public class VideoInfoDTO extends PageInfo implements Serializable {
      */
     private Integer isDeleted;
 
+    /**
+     * 播放量
+     *
+     */
+    private Integer views;
+
+    private String description;
 
 
+    private Integer categoryId;
 
+    private List<String> tags;
 }
 

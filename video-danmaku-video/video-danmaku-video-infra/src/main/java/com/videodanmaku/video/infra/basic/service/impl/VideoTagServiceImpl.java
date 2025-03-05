@@ -1,7 +1,7 @@
 package com.videodanmaku.video.infra.basic.service.impl;
 
 import com.videodanmaku.video.infra.basic.entity.VideoTag;
-import com.videodanmaku.video.infra.basic.dao.VideoTagDao;
+import com.videodanmaku.video.infra.basic.mapper.VideoTagDao;
 import com.videodanmaku.video.infra.basic.service.VideoTagService;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;

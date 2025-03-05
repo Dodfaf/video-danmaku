@@ -1,4 +1,4 @@
-package com.videodanmaku.video.infra.basic.dao;
+package com.videodanmaku.video.infra.basic.mapper;
 
 import com.videodanmaku.video.infra.basic.entity.VideoTag;
 import org.apache.ibatis.annotations.Param;
@@ -9,7 +9,7 @@ import java.util.List;
  * (VideoTag)表数据库访问层
  *
  * @author makejava
- * @since 2025-03-03 13:40:55
+ * @since 2025-03-02 16:58:17
  */
 public interface VideoTagDao {
 
