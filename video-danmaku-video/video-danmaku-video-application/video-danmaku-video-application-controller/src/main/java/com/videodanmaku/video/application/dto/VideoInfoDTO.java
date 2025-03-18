@@ -2,6 +2,7 @@ package com.videodanmaku.video.application.dto;
 
 import com.videodanmaku.common.entity.PageInfo;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.List;
  * @author makejava
  * @since 2025-02-22 21:08:26
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class VideoInfoDTO extends PageInfo implements Serializable {
     private static final long serialVersionUID = -66648278681006828L;
@@ -78,5 +80,7 @@ public class VideoInfoDTO extends PageInfo implements Serializable {
     private Integer categoryId;
 
     private List<String> tags;
+
+    private Integer duration;
 }
 

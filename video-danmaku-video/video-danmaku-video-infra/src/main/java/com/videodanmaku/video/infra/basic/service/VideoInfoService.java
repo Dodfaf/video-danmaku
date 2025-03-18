@@ -58,4 +58,13 @@ public interface VideoInfoService {
     List<VideoInfo> queryByUpId(Integer upId);
 
     List<VideoInfo> getRandom();
+    
+    /**
+     * 根据视频标题模糊查询
+     *
+     * @param title 视频标题
+     * @param pageRequest 分页对象
+     * @return 查询结果
+     */
+    Page<VideoInfo> queryByTitleLike(String title, PageRequest pageRequest);
 }

@@ -90,4 +90,17 @@ public class VideoInfoServiceImpl implements VideoInfoService {
     public List<VideoInfo> getRandom() {
         return this.videoInfoDao.getRandom();
     }
+    
+    /**
+     * 根据视频标题模糊查询
+     *
+     * @param title 视频标题
+     * @param pageRequest 分页对象
+     * @return 查询结果
+     */
+    @Override
+    public Page<VideoInfo> queryByTitleLike(String title, PageRequest pageRequest) {
+        long total = this.videoInfoDao.countByTitleLike(title);
+        return new PageImpl<>(this.videoInfoDao.queryByTitleLike(title, pageRequest), pageRequest, total);
+    }
 }

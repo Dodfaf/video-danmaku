@@ -22,7 +22,9 @@ public class VideoInfoDomainServiceImpl implements VideoInfoDomainService {
     public VideoInfoBO getVideoInfoById(VideoInfoBO videoInfoBO) {
         VideoInfo videoInfo = videoInfoService.queryById(videoInfoBO.getId());
 
+        System.out.println("domain"+ videoInfo.getDuration());
         VideoInfoBO bo = VideoInfoConverter.INSTANCE.convertEntityToBO(videoInfo);
+        System.out.println("bo"+bo.getDuration());
         return bo;
     }
 
@@ -55,5 +57,33 @@ public class VideoInfoDomainServiceImpl implements VideoInfoDomainService {
     @Override
     public List<VideoInfo> getHomePageVideoList() {
         return videoInfoService.getRandom();
+    }
+
+    @Override
+    public Page<VideoInfoBO> getNoStatusVideoList(VideoInfoBO videoInfoBO, Integer pageNo, Integer pageSize) {
+        VideoInfo videoInfo = VideoInfoConverter.INSTANCE.convertBoToEntity(videoInfoBO);
+        // 假设前端传入页码和每页大小
+        PageRequest  pageRequest = PageRequest.of(pageNo-1,pageSize, Sort.by(Sort.Direction.DESC, "createdTime"));
+        Page<VideoInfo> videoInfoPage = videoInfoService.queryByPage(videoInfo, pageRequest);
+
+        return videoInfoPage.map(VideoInfoConverter.INSTANCE::convertEntityToBO);
+    }
+    
+    /**
+     * 根据视频标题模糊查询
+     *
+     * @param title 视频标题
+     * @param pageNo 页码
+     * @param pageSize 每页大小
+     * @return 查询结果
+     */
+    @Override
+    public Page<VideoInfoBO> searchVideoByTitle(String title, Integer pageNo, Integer pageSize) {
+        // 创建分页请求对象
+        PageRequest pageRequest = PageRequest.of(pageNo-1, pageSize, Sort.by(Sort.Direction.DESC, "createTime"));
+        // 调用基础服务层的模糊查询方法
+        Page<VideoInfo> videoInfoPage = videoInfoService.queryByTitleLike(title, pageRequest);
+        // 将实体对象转换为业务对象并返回
+        return videoInfoPage.map(VideoInfoConverter.INSTANCE::convertEntityToBO);
     }
 }

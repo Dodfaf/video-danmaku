@@ -80,5 +80,21 @@ public interface VideoInfoDao {
     int deleteById(Integer id);
 
     List<VideoInfo> getRandom();
+    
+    /**
+     * 根据视频标题模糊查询
+     *
+     * @param title 视频标题
+     * @param pageable 分页对象
+     * @return 对象列表
+     */
+    List<VideoInfo> queryByTitleLike(@Param("title") String title, @Param("pageable") Pageable pageable);
+    
+    /**
+     * 统计模糊查询总行数
+     *
+     * @param title 视频标题
+     * @return 总行数
+     */
+    long countByTitleLike(@Param("title") String title);
 }
-

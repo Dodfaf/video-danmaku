@@ -8,6 +8,7 @@ import com.videodanmaku.video.application.convert.VideoInfoDTOConverter;
 import com.videodanmaku.video.application.dto.VideoInfoDTO;
 import com.videodanmaku.video.domain.entity.VideoInfoBO;
 import com.videodanmaku.video.domain.service.VideoInfoDomainService;
+import com.videodanmaku.video.infra.basic.entity.VideoInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +37,9 @@ public class VideoInfoController {
             Preconditions.checkNotNull(videoInfoDTO.getId(), "videoId不能为空！");
             VideoInfoBO videoInfoBO = VideoInfoDTOConverter.INSTANCE.convertDtoToBO(videoInfoDTO);
             VideoInfoBO videoInfoBo = videoInfoDomainService.getVideoInfoById(videoInfoBO);
-            return Result.ok(VideoInfoDTOConverter.INSTANCE.convertBoToDTO(videoInfoBo));
+            VideoInfoDTO info = VideoInfoDTOConverter.INSTANCE.convertBoToDTO(videoInfoBo);
+            System.out.println(info.getDuration());
+            return Result.ok(info);
         }catch (Exception e){
             log.error("VideoInfoController.getVideoInfoById.error:{}", e.getMessage(), e);
             return Result.fail("查询视频信息失败");
@@ -97,6 +100,8 @@ public class VideoInfoController {
                 log.info("VideoInfoController.uploadVideo.dto:{}", JSON.toJSONString(videoInfoDTO));
             }
 //            Preconditions.checkNotNull(file, "上传视频不能为空！");
+            videoInfoDTO.setStatus(0);
+            videoInfoDTO.setIsDeleted(0);
             VideoInfoBO videoInfoBO = VideoInfoDTOConverter.INSTANCE.convertDtoToBO(videoInfoDTO);
 
             return Result.ok(videoInfoDomainService.uploadVideo(videoInfoBO));
@@ -106,5 +111,68 @@ public class VideoInfoController {
         }
     }
 
+    @RequestMapping("/updateStatus")
+    public Result<Boolean> updateStatus(@RequestBody VideoInfoDTO videoInfoDTO){
+
+        try {
+            if (log.isInfoEnabled()){
+                log.info("VideoInfoController.updateStatus.dto:{}", JSON.toJSONString(videoInfoDTO));
+            }
+            Preconditions.checkNotNull(videoInfoDTO.getId(), "videoId不能为空！");
+            Preconditions.checkNotNull(videoInfoDTO.getStatus(), "status不能为空！");
+            VideoInfoBO videoInfoBO = VideoInfoDTOConverter.INSTANCE.convertDtoToBO(videoInfoDTO);
+
+            return Result.ok(videoInfoDomainService.update(videoInfoBO));
+        }catch (Exception e){
+            log.error("VideoInfoController.getVideoInfoById.error:{}", e.getMessage(), e);
+            return Result.fail("更新视频状态失败");
+        }
+    }
+
+    @RequestMapping("/getStatusVideoList")
+    public Result<Page<VideoInfoDTO>> getStatusVideoList(@RequestBody VideoInfoDTO videoInfoDTO){
+
+        try {
+            if (log.isInfoEnabled()){
+                log.info("VideoInfoController.getNoStatusVideoList.dto:{}", JSON.toJSONString(videoInfoDTO));
+            }
+            Preconditions.checkNotNull(videoInfoDTO.getStatus(), "status不能为空！");
+            VideoInfoBO videoInfoBO = VideoInfoDTOConverter.INSTANCE.convertDtoToBO(videoInfoDTO);
+            Page<VideoInfoBO> videoInfoBoList = videoInfoDomainService.getNoStatusVideoList(videoInfoBO, videoInfoDTO.getPageNo(), videoInfoDTO.getPageSize());
+            return Result.ok(videoInfoBoList.map(VideoInfoDTOConverter.INSTANCE::convertBoToDTO));
+        }catch (Exception e){
+            log.error("VideoInfoController.getUserVideoList.error:{}", e.getMessage(), e);
+            return Result.fail("查询用户视频列表失败");
+        }
+    }
+
+    /**
+     * 根据视频标题模糊查询
+     *
+     * @param videoInfoDTO 包含查询标题的DTO对象
+     * @return 查询结果
+     */
+    @RequestMapping("/searchByTitle")
+    public Result<Page<VideoInfoDTO>> searchByTitle(@RequestBody VideoInfoDTO videoInfoDTO){
+        try {
+            if (log.isInfoEnabled()){
+                log.info("VideoInfoController.searchByTitle.dto:{}", JSON.toJSONString(videoInfoDTO));
+            }
+            Preconditions.checkNotNull(videoInfoDTO.getVideoTitle(), "视频标题不能为空！");
+            Preconditions.checkNotNull(videoInfoDTO.getPageNo(), "页码不能为空！");
+            Preconditions.checkNotNull(videoInfoDTO.getPageSize(), "每页大小不能为空！");
+            
+            Page<VideoInfoBO> videoInfoBoList = videoInfoDomainService.searchVideoByTitle(
+                videoInfoDTO.getVideoTitle(), 
+                videoInfoDTO.getPageNo(), 
+                videoInfoDTO.getPageSize()
+            );
+            Page<VideoInfoDTO> result = videoInfoBoList.map(VideoInfoDTOConverter.INSTANCE::convertBoToDTO);
+            return Result.ok(result);
+        } catch (Exception e) {
+            log.error("VideoInfoController.searchByTitle.error:{}", e.getMessage(), e);
+            return Result.fail("视频标题模糊查询失败");
+        }
+    }
 
 }

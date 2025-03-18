@@ -14,9 +14,11 @@
         <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
         <result property="duration" column="duration" jdbcType="INTEGER"/>
+        <result property="views" column="views" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
@@ -24,7 +26,7 @@
         select
             id, video_title, up_id, video_url, status, cover_url, likes,
             favorites, create_by, create_time, update_by, update_time,
-            is_deleted, duration,description, views
+            is_deleted, duration, description, views
         from video_info
         where id = #{id}
     </select>
@@ -32,11 +34,11 @@
 <!--    获取随机视频-->
     <select id="getRandom" resultMap="VideoInfoMap">
         select
-            id, video_title, up_id, video_url, status, cover_url, likes, favorites, create_by, create_time,views
+            id, video_title, up_id, video_url, status, cover_url, likes, favorites, create_by, create_time,views, duration
         from video_info
         WHERE id >= (
             SELECT FLOOR(RAND() * (SELECT MAX(id) FROM video_info))
-        )
+        ) AND status = 1 AND is_deleted = 0
         LIMIT 10;
     </select>
 
@@ -234,5 +236,32 @@ id, video_title, up_id, video_url, status, cover_url, likes, favorites, create_b
         delete from video_info where id = #{id}
     </delete>
 
-</mapper>
+    <!--根据视频标题模糊查询-->
+    <select id="queryByTitleLike" resultMap="VideoInfoMap">
+        select
+            id, video_title, up_id, video_url, status, cover_url, likes,
+            favorites, create_by, create_time, update_by, update_time,
+            is_deleted, duration, description, views
+        from video_info
+        <where>
+            <if test="title != null and title != ''">
+                and video_title like concat('%', #{title}, '%')
+            </if>
+            and is_deleted = 0
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
 
+    <!--统计模糊查询总行数-->
+    <select id="countByTitleLike" resultType="java.lang.Long">
+        select count(1)
+        from video_info
+        <where>
+            <if test="title != null and title != ''">
+                and video_title like concat('%', #{title}, '%')
+            </if>
+            and is_deleted = 0
+        </where>
+    </select>
+
+</mapper>

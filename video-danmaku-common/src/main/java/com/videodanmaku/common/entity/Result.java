@@ -14,8 +14,8 @@ public class Result<T> {
 
     private T data;
 
-    public static Result ok(){
-        Result result = new Result();
+    public static <T> Result<T> ok(){
+        Result<T> result = new Result<>();
         result.setSuccess(true);
         result.setCode(ResultCodeEnum.SUCCESS.getCode());
         result.setMessage(ResultCodeEnum.SUCCESS.getDesc());

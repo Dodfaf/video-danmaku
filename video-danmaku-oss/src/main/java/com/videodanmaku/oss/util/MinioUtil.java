@@ -10,8 +10,10 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -35,8 +37,12 @@ public class MinioUtil {
      * 上传文件
      */
     public void uploadFile(InputStream inputStream, String bucket, String objectName) throws Exception {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Cache-Control", "max-age=604800");
         minioClient.putObject(PutObjectArgs.builder().bucket(bucket).object(objectName)
-                .stream(inputStream, -1, 5242889L).build());
+                .stream(inputStream, -1, 5242889L)
+                .extraHeaders(headers).build());
+
     }
 
     /**
