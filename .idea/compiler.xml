@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="video-danmaku-auth-starter" />
+        <module name="video-danmaku-auth-infra" />
+        <module name="video-danmaku-common" />
+        <module name="video-danmaku-comment-api" />
+        <module name="video-danmaku-video-application-controller" />
+        <module name="video-danmaku-auth-application-mq" />
+        <module name="video-danmaku-video-common" />
+        <module name="video-danmaku-auth-api" />
+        <module name="video-danmaku-auth-domain" />
+        <module name="video-danmaku-auth-application-job" />
+        <module name="video-danmaku-video-infra" />
+        <module name="video-danmaku-auth-application" />
+        <module name="video-danmaku-video-application-job" />
+        <module name="video-danmaku-video-application-mq" />
+        <module name="video-danmaku-auth-application-controller" />
+        <module name="video-danmaku-video-application" />
+        <module name="video-danmaku-oss" />
+        <module name="video-danmaku-video-starter" />
+        <module name="video-danmaku-comment-server" />
+        <module name="video-danmaku-video-api" />
+        <module name="video-danmaku-video-domain" />
+        <module name="video-danmaku-auth-common" />
+        <module name="video-danmaku-gateway" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="jc-club-oss" target="1.8" />
+      <module name="video-danmaku-auth (1)" target="1.8" />
+      <module name="video-danmaku-auth (2)" target="1.8" />
+      <module name="video-danmaku-auth-application-mq (1)" target="1.8" />
+      <module name="video-danmaku-auth-application-mq (2)" target="1.8" />
+      <module name="video-danmaku-auth-starter (1)" target="1.8" />
+      <module name="video-danmaku-auth-starter (2)" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

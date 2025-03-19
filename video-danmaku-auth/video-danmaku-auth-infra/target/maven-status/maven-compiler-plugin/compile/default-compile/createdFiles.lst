@@ -1,0 +1,4 @@
+com\videodanmaku\auth\infra\basic\entity\AuthUser.class
+com\videodanmaku\auth\infra\basic\service\AuthUserService.class
+com\videodanmaku\auth\infra\basic\mapper\AuthUserDao.class
+com\videodanmaku\auth\infra\basic\service\impl\AuthUserServiceImpl.class
