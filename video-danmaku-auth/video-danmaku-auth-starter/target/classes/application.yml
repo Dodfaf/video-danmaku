@@ -12,7 +12,7 @@ spring:
       min-idle: 20
       connectionProperties: config.decrypt=true;config.decrypt.key=${publicKey};
       max-active: 100
-      max-wait: 60000
+      max-wait: 60
       stat-view-servlet:
         enabled: true
         url-pattern: /druid/*
