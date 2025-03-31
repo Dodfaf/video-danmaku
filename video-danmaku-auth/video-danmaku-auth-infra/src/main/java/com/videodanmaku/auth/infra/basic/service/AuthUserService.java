@@ -4,6 +4,8 @@ import com.videodanmaku.auth.infra.basic.entity.AuthUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * 用户信息表(AuthUser)表服务接口
  *
@@ -56,4 +58,5 @@ public interface AuthUserService {
      */
     boolean deleteById(Integer id);
 
+    List<AuthUser> listUserInfoByIds(List<String> userNameList);
 }

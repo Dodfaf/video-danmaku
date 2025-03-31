@@ -47,10 +47,11 @@ public class UserRpc {
         Map<String, UserInfo> result = new HashMap<>();
         for (AuthUserDTO data : listResult.getData()) {
             UserInfo userInfo = new UserInfo();
+            userInfo.setId((data.getId().toString()));
             userInfo.setUserName(data.getUserName());
             userInfo.setNickName(data.getNickName());
             userInfo.setAvatar(data.getAvatar());
-            result.put(userInfo.getUserName(), userInfo);
+            result.put(userInfo.getId(), userInfo);
         }
         return result;
     }

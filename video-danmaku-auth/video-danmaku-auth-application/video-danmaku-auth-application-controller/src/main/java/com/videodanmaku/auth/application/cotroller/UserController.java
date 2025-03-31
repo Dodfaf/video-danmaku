@@ -2,6 +2,7 @@ package com.videodanmaku.auth.application.cotroller;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.google.common.base.Preconditions;
 import com.videodanmaku.auth.application.convert.AuthUserDTOConverter;
 import com.videodanmaku.auth.application.dto.AuthUserDTO;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user/")
@@ -53,7 +55,23 @@ public class UserController {
         }
     }
 
-
+    /**
+     * 批量获取用户信息
+     */
+    @RequestMapping("listByIds")
+    public Result<List<AuthUserDTO>> listUserInfoByIds(@RequestBody List<String> userNameList) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("UserController.listUserInfoByIds.dto:{}", JSON.toJSONString(userNameList));
+            }
+            Preconditions.checkArgument(!CollectionUtils.isEmpty(userNameList), "id集合不能为空");
+            List<AuthUserBO> userInfos = authUserDomainService.listUserInfoByIds(userNameList);
+            return Result.ok(AuthUserDTOConverter.INSTANCE.convertBOToDTO(userInfos));
+        } catch (Exception e) {
+            log.error("UserController.listUserInfoByIds.error:{}", e.getMessage(), e);
+            return Result.fail("批量获取用户信息失败");
+        }
+    }
 
 
 

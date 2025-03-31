@@ -53,7 +53,7 @@ public class ShareMomentServiceImpl extends ServiceImpl<ShareMomentMapper, Share
     public Boolean saveMoment(SaveMomentCircleReq req) {
 
         ShareMoment moment = new ShareMoment();
-        moment.setCircleId(req.getCircleId());
+        moment.setVideoId(req.getVideoId());
         moment.setContent(req.getContent());
         if (!CollectionUtils.isEmpty(req.getPicUrlList())) {
             moment.setPicUrls(JSON.toJSONString(req.getPicUrlList()));
@@ -70,9 +70,9 @@ public class ShareMomentServiceImpl extends ServiceImpl<ShareMomentMapper, Share
     public PageResult<ShareMomentVO> getMoments(GetShareMomentReq req) {
 
         LambdaQueryWrapper<ShareMoment> query = Wrappers.<ShareMoment>lambdaQuery()
-                .eq(Objects.nonNull(req.getCircleId()), ShareMoment::getCircleId, req.getCircleId())
+                .eq(Objects.nonNull(req.getVideoId()), ShareMoment::getVideoId, req.getVideoId())
                 .eq(ShareMoment::getIsDeleted, IsDeletedFlagEnum.UN_DELETED.getCode())
-                .orderByDesc(ShareMoment::getCircleId);
+                .orderByDesc(ShareMoment::getVideoId);
         PageInfo pageInfo = req.getPageInfo();
         Page<ShareMoment> page = new Page<>(pageInfo.getPageNo(), pageInfo.getPageSize());
         Page<ShareMoment> pageRes = super.page(page, query);
@@ -84,7 +84,7 @@ public class ShareMomentServiceImpl extends ServiceImpl<ShareMomentMapper, Share
         List<ShareMomentVO> list = records.stream().map(item -> {
             ShareMomentVO vo = new ShareMomentVO();
             vo.setId(item.getId());
-            vo.setCircleId(item.getCircleId());
+            vo.setVideoId(item.getVideoId());
             vo.setContent(item.getContent());
             if (Objects.nonNull(item.getPicUrls())) {
                 List<String> picList = JSONArray.parseArray(item.getPicUrls(), String.class);

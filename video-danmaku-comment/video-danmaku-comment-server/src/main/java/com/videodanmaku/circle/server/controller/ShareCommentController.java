@@ -32,12 +32,10 @@ import java.util.Objects;
  * 回复及评论 前端控制器
  * </p>
  *
- * @author ChickenWing
- * @since 2024/05/16
  */
 @Slf4j
 @RestController
-@RequestMapping("/circle/share/comment")
+@RequestMapping("/share/comment")
 public class ShareCommentController {
 
     @Resource
@@ -61,10 +59,13 @@ public class ShareCommentController {
             Preconditions.checkArgument(Objects.nonNull(req), "参数不能为空！");
             Preconditions.checkArgument(Objects.nonNull(req.getReplyType()), "类型不能为空！");
             Preconditions.checkArgument(Objects.nonNull(req.getMomentId()), "内容ID不能为空！");
+
+
             ShareMoment moment = shareMomentService.getById(req.getMomentId());
             Preconditions.checkArgument((Objects.nonNull(moment) && moment.getIsDeleted() != IsDeletedFlagEnum.DELETED.getCode()), "非法内容！");
             Preconditions.checkArgument((Objects.nonNull(req.getContent()) || Objects.nonNull(req.getPicUrlList())), "内容不能为空！");
-            wordFilter.check(req.getContent());
+
+            wordFilter.check(req.getContent()); //敏感词校验
             Boolean result = shareCommentReplyService.saveComment(req);
             if (result) {
                 if (req.getReplyType() == 1) {

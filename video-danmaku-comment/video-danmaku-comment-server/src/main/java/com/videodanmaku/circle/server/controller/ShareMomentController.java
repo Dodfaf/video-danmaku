@@ -8,9 +8,7 @@ import com.videodanmaku.circle.api.req.GetShareMomentReq;
 import com.videodanmaku.circle.api.req.RemoveShareMomentReq;
 import com.videodanmaku.circle.api.req.SaveMomentCircleReq;
 import com.videodanmaku.circle.api.vo.ShareMomentVO;
-import com.videodanmaku.circle.server.entity.po.ShareCircle;
 import com.videodanmaku.circle.server.sensitive.WordFilter;
-import com.videodanmaku.circle.server.service.ShareCircleService;
 import com.videodanmaku.circle.server.service.ShareMomentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,13 +29,13 @@ import java.util.Objects;
  */
 @Slf4j
 @RestController
-@RequestMapping("/circle/share/moment")
+@RequestMapping("/share/moment")
 public class ShareMomentController {
 
     @Resource
     private ShareMomentService shareMomentService;
-    @Resource
-    private ShareCircleService shareCircleService;
+//    @Resource
+//    private ShareCircleService shareCircleService;
     @Resource
     private WordFilter wordFilter;
 
@@ -51,9 +49,10 @@ public class ShareMomentController {
                 log.info("发布内容入参{}", JSON.toJSONString(req));
             }
             Preconditions.checkArgument(Objects.nonNull(req), "参数不能为空！");
-            Preconditions.checkArgument(Objects.nonNull(req.getCircleId()), "圈子ID不能为空！");
-            ShareCircle data = shareCircleService.getById(req.getCircleId());
-            Preconditions.checkArgument((Objects.nonNull(data) && data.getParentId() != -1), "非法圈子ID！");
+            Preconditions.checkArgument(Objects.nonNull(req.getVideoId()), "圈子ID不能为空！");
+//
+//            ShareCircle data = shareCircleService.getById(req.getCircleId());
+//            Preconditions.checkArgument((Objects.nonNull(data) && data.getParentId() != -1), "非法圈子ID！");
             Preconditions.checkArgument((Objects.nonNull(req.getContent()) || Objects.nonNull(req.getPicUrlList())), "鸡圈不能为空！");
             wordFilter.check(req.getContent());
             Boolean result = shareMomentService.saveMoment(req);
@@ -72,7 +71,7 @@ public class ShareMomentController {
 
 
     /**
-     * 分页查询鸡圈内容
+     * 分页查询视频评论内容
      */
     @PostMapping(value = "/getMoments")
     public Result<PageResult<ShareMomentVO>> getMoments(@RequestBody GetShareMomentReq req) {

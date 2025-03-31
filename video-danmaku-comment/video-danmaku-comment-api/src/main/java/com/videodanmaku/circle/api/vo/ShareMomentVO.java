@@ -27,7 +27,7 @@ public class ShareMomentVO implements Serializable {
     /**
      * 圈子ID
      */
-    private Long circleId;
+    private Long videoId;
 
     /**
      * 动态内容

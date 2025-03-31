@@ -2,12 +2,14 @@ package com.videodanmaku.auth.domain.convert;
 
 import com.videodanmaku.auth.domain.entity.AuthUserBO;
 import com.videodanmaku.auth.infra.basic.entity.AuthUser;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-04T15:35:54+0800",
-    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 3.41.0.z20250115-2156, environment: Java 21.0.5 (Eclipse Adoptium)"
+    date = "2025-03-31T19:46:44+0800",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 1.8.0_422 (Amazon.com Inc.)"
 )
 public class AuthUserBOConverterImpl implements AuthUserBOConverter {
 
@@ -19,17 +21,17 @@ public class AuthUserBOConverterImpl implements AuthUserBOConverter {
 
         AuthUser authUser = new AuthUser();
 
-        authUser.setAvatar( authUserBO.getAvatar() );
-        authUser.setEmail( authUserBO.getEmail() );
         authUser.setId( authUserBO.getId() );
+        authUser.setUserName( authUserBO.getUserName() );
+        authUser.setStatus( authUserBO.getStatus() );
+        authUser.setAvatar( authUserBO.getAvatar() );
+        authUser.setNickName( authUserBO.getNickName() );
+        authUser.setEmail( authUserBO.getEmail() );
+        authUser.setPhone( authUserBO.getPhone() );
+        authUser.setPassword( authUserBO.getPassword() );
+        authUser.setSex( authUserBO.getSex() );
         authUser.setIntroduce( authUserBO.getIntroduce() );
         authUser.setIsDeleted( authUserBO.getIsDeleted() );
-        authUser.setNickName( authUserBO.getNickName() );
-        authUser.setPassword( authUserBO.getPassword() );
-        authUser.setPhone( authUserBO.getPhone() );
-        authUser.setSex( authUserBO.getSex() );
-        authUser.setStatus( authUserBO.getStatus() );
-        authUser.setUserName( authUserBO.getUserName() );
 
         return authUser;
     }
@@ -42,18 +44,32 @@ public class AuthUserBOConverterImpl implements AuthUserBOConverter {
 
         AuthUserBO authUserBO = new AuthUserBO();
 
-        authUserBO.setAvatar( authUser.getAvatar() );
-        authUserBO.setEmail( authUser.getEmail() );
         authUserBO.setId( authUser.getId() );
+        authUserBO.setUserName( authUser.getUserName() );
+        authUserBO.setStatus( authUser.getStatus() );
+        authUserBO.setAvatar( authUser.getAvatar() );
+        authUserBO.setNickName( authUser.getNickName() );
+        authUserBO.setEmail( authUser.getEmail() );
+        authUserBO.setPhone( authUser.getPhone() );
+        authUserBO.setPassword( authUser.getPassword() );
+        authUserBO.setSex( authUser.getSex() );
         authUserBO.setIntroduce( authUser.getIntroduce() );
         authUserBO.setIsDeleted( authUser.getIsDeleted() );
-        authUserBO.setNickName( authUser.getNickName() );
-        authUserBO.setPassword( authUser.getPassword() );
-        authUserBO.setPhone( authUser.getPhone() );
-        authUserBO.setSex( authUser.getSex() );
-        authUserBO.setStatus( authUser.getStatus() );
-        authUserBO.setUserName( authUser.getUserName() );
 
         return authUserBO;
+    }
+
+    @Override
+    public List<AuthUserBO> convertEntityToBO(List<AuthUser> authUserList) {
+        if ( authUserList == null ) {
+            return null;
+        }
+
+        List<AuthUserBO> list = new ArrayList<AuthUserBO>( authUserList.size() );
+        for ( AuthUser authUser : authUserList ) {
+            list.add( convertEntityToBO( authUser ) );
+        }
+
+        return list;
     }
 }

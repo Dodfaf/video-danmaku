@@ -11,7 +11,7 @@ public class GetShareMomentReq implements Serializable {
     /**
      * 圈子ID
      */
-    private Long circleId;
+    private Long videoId;
 
     /**
      * 分页信息

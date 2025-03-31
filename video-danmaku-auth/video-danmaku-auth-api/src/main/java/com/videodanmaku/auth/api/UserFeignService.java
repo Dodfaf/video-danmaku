@@ -12,8 +12,6 @@ import java.util.List;
 /**
  * 用户服务feign
  *
- * @author: ChickenWing
- * @date: 2023/12/3
  */
 @FeignClient("video-danmaku-auth-dev")
 public interface UserFeignService {

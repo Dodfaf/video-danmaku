@@ -13,9 +13,7 @@ import java.util.Date;
  * <p>
  * 动态信息
  * </p>
- *
- * @author ChickenWing
- * @since 2024/05/16
+
  */
 @Getter
 @Setter
@@ -33,7 +31,7 @@ public class ShareMoment implements Serializable {
     /**
      * 圈子ID
      */
-    private Long circleId;
+    private Long videoId;
 
     /**
      * 动态内容
@@ -41,7 +39,7 @@ public class ShareMoment implements Serializable {
     private String content;
 
     /**
-     * 动态图片内容
+     * 动态图片路径
      */
     private String picUrls;
 
