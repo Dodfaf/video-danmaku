@@ -237,5 +237,16 @@ is_deleted = values(is_deleted)
         delete from auth_user where id = #{id}
     </delete>
 
+    <select id="listUserInfoByIds" resultMap="AuthUserMap">
+
+        select
+        id, user_name, nick_name, email, phone, password, sex, avatar, status, introduce, create_by,
+        create_time, update_by, update_time, is_deleted
+        from auth_user
+        where id in
+        <foreach collection="userNameList" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 </mapper>
 
