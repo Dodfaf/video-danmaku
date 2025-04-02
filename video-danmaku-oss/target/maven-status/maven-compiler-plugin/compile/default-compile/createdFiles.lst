@@ -1,0 +1,10 @@
+com\videodanmaku\oss\adapter\MinioStorageAdapter.class
+com\videodanmaku\oss\config\StorageConfig.class
+com\videodanmaku\oss\adapter\AliStorageAdapter.class
+com\videodanmaku\oss\OssApplication.class
+com\videodanmaku\oss\config\MinioConfig.class
+com\videodanmaku\oss\adapter\StorageAdapter.class
+com\videodanmaku\oss\controller\FileController.class
+com\videodanmaku\oss\service\FileService.class
+com\videodanmaku\oss\util\MinioUtil.class
+com\videodanmaku\oss\entity\FileInfo.class

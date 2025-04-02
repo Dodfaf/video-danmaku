@@ -1,0 +1,16 @@
+server:
+  port: 4000
+  tomcat:
+    max-swallow-size: -1 # 关闭Tomcat的请求体限制（关键！）
+minio:
+  url: http://192.168.10.135:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  presigned-url-expiry:
+    default: 90d    # 支持时间单位：s, m, h, d
+    short-term: 30m
+spring:
+  servlet:
+    multipart:
+      max-request-size: 2GB  # 单次请求总大小（需 ≥ max-file-size）
+      max-file-size: 2GB  # 单个文件最大大小（示例设为2GB）

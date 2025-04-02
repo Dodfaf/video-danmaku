@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-application/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-application/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-application/video-danmaku-auth-application-controller/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-application/video-danmaku-auth-application-controller/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-application/video-danmaku-auth-application-job/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-application/video-danmaku-auth-application-job/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-domain/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-infra/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-infra/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-starter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-comment/video-danmaku-comment-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-comment/video-danmaku-comment-server/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-oss/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-oss/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-application/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-application/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-application/video-danmaku-video-application-controller/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-application/video-danmaku-video-application-controller/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-application/video-danmaku-video-application-job/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-application/video-danmaku-video-application-job/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-application/video-danmaku-video-application-mq/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-application/video-danmaku-video-application-mq/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-domain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-domain/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-infra/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-infra/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-starter/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-video/video-danmaku-video-starter/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

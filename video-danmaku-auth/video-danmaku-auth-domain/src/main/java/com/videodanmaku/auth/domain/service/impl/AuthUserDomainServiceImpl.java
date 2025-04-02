@@ -15,9 +15,12 @@ import com.videodanmaku.auth.infra.basic.service.AuthUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
 import javax.annotation.Resource;
 
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -106,6 +109,7 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
 
         // 5. 记录登录状态，并返回 Token
         StpUtil.login(user.getId(), 60 * 60 * 24 ); //token一天有效
+        System.out.println(StpUtil.getTokenValue());
         return StpUtil.getTokenInfo();
     }
     public boolean checkLoginAttempts(String username) {
@@ -143,8 +147,12 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
 
 
     @Override
-    public List<AuthUserBO> listUserInfoByIds(List<String> ids) {
-        return null;
+    public List<AuthUserBO> listUserInfoByIds(List<String> userNameList) {
+        List<AuthUser> userList = authUserService.listUserInfoByIds(userNameList);
+        if (CollectionUtils.isEmpty(userList)) {
+            return Collections.emptyList();
+        }
+        return AuthUserBOConverter.INSTANCE.convertEntityToBO(userList);
     }
 
     private AuthUser getUserFromCache(String username) {

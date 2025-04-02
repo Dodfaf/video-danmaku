@@ -82,5 +82,7 @@ public interface AuthUserDao {
      */
     int deleteById(Integer id);
 
+
+    List<AuthUser> listUserInfoByIds(@Param("userNameList") List<String> userNameList);
 }
 
