@@ -8,8 +8,8 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-04T15:35:56+0800",
-    comments = "version: 1.4.2.Final, compiler: Eclipse JDT (IDE) 3.41.0.z20250115-2156, environment: Java 21.0.5 (Eclipse Adoptium)"
+    date = "2025-04-03T17:11:08+0800",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 1.8.0_422 (Amazon.com Inc.)"
 )
 public class AuthUserDTOConverterImpl implements AuthUserDTOConverter {
 
@@ -21,16 +21,16 @@ public class AuthUserDTOConverterImpl implements AuthUserDTOConverter {
 
         AuthUserBO authUserBO = new AuthUserBO();
 
-        authUserBO.setAvatar( authUserDTO.getAvatar() );
-        authUserBO.setEmail( authUserDTO.getEmail() );
         authUserBO.setId( authUserDTO.getId() );
-        authUserBO.setIntroduce( authUserDTO.getIntroduce() );
-        authUserBO.setNickName( authUserDTO.getNickName() );
-        authUserBO.setPassword( authUserDTO.getPassword() );
-        authUserBO.setPhone( authUserDTO.getPhone() );
-        authUserBO.setSex( authUserDTO.getSex() );
-        authUserBO.setStatus( authUserDTO.getStatus() );
         authUserBO.setUserName( authUserDTO.getUserName() );
+        authUserBO.setStatus( authUserDTO.getStatus() );
+        authUserBO.setAvatar( authUserDTO.getAvatar() );
+        authUserBO.setNickName( authUserDTO.getNickName() );
+        authUserBO.setEmail( authUserDTO.getEmail() );
+        authUserBO.setPhone( authUserDTO.getPhone() );
+        authUserBO.setPassword( authUserDTO.getPassword() );
+        authUserBO.setSex( authUserDTO.getSex() );
+        authUserBO.setIntroduce( authUserDTO.getIntroduce() );
 
         return authUserBO;
     }
@@ -43,16 +43,16 @@ public class AuthUserDTOConverterImpl implements AuthUserDTOConverter {
 
         AuthUserDTO authUserDTO = new AuthUserDTO();
 
-        authUserDTO.setAvatar( authUserBO.getAvatar() );
-        authUserDTO.setEmail( authUserBO.getEmail() );
         authUserDTO.setId( authUserBO.getId() );
-        authUserDTO.setIntroduce( authUserBO.getIntroduce() );
-        authUserDTO.setNickName( authUserBO.getNickName() );
-        authUserDTO.setPassword( authUserBO.getPassword() );
-        authUserDTO.setPhone( authUserBO.getPhone() );
-        authUserDTO.setSex( authUserBO.getSex() );
-        authUserDTO.setStatus( authUserBO.getStatus() );
         authUserDTO.setUserName( authUserBO.getUserName() );
+        authUserDTO.setStatus( authUserBO.getStatus() );
+        authUserDTO.setAvatar( authUserBO.getAvatar() );
+        authUserDTO.setNickName( authUserBO.getNickName() );
+        authUserDTO.setEmail( authUserBO.getEmail() );
+        authUserDTO.setPhone( authUserBO.getPhone() );
+        authUserDTO.setPassword( authUserBO.getPassword() );
+        authUserDTO.setSex( authUserBO.getSex() );
+        authUserDTO.setIntroduce( authUserBO.getIntroduce() );
 
         return authUserDTO;
     }

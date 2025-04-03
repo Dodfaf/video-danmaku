@@ -123,7 +123,7 @@ public class UserController {
     }
 
     @RequestMapping("getUserInfo")
-    public Result<Boolean> getUserInfo(@RequestBody AuthUserDTO authUserDTO) {
+    public Result<AuthUserDTO> getUserInfo(@RequestBody AuthUserDTO authUserDTO) {
 
         try {
             if (log.isInfoEnabled()) {

@@ -6,7 +6,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-03-07T23:00:09+0800",
+    date = "2025-04-03T17:11:30+0800",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 1.8.0_422 (Amazon.com Inc.)"
 )
 public class VideoInfoDTOConverterImpl implements VideoInfoDTOConverter {

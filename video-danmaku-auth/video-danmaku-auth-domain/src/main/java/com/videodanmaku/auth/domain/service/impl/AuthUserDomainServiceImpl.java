@@ -52,10 +52,10 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
         AuthUser authUser = AuthUserBOConverter.INSTANCE.convertBOToEntity(authUserBO);
         String hashpwd = BCrypt.hashpw(authUser.getPassword(), BCrypt.gensalt(12));
         if (StringUtils.isBlank(authUser.getAvatar())){ //设置默认头像地址
-            authUser.setAvatar("http://1234");
+            authUser.setAvatar("http://192.168.10.135:9000/avatars/头像 (1750).png");
         }
         if (StringUtils.isBlank(authUser.getNickName())){ //设置默认昵称
-            authUser.setNickName("热心市民");
+            authUser.setNickName("默认昵称");
         }
         authUser.setStatus(AuthUserStatusEnum.OPEN.getCode());
         authUser.setIsDeleted(IsDeletedFlagEnum.UN_DELETED.getCode());
