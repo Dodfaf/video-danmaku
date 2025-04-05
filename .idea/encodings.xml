@@ -11,6 +11,8 @@
     <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-application/video-danmaku-auth-application-controller/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-application/video-danmaku-auth-application-job/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-application/video-danmaku-auth-application-job/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-application/video-danmaku-auth-application-mq/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-application/video-danmaku-auth-application-mq/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-common/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/video-danmaku-auth/video-danmaku-auth-domain/src/main/java" charset="UTF-8" />
