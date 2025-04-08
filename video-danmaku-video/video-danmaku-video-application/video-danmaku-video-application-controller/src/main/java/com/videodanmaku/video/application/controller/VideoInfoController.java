@@ -6,8 +6,10 @@ import com.google.common.base.Preconditions;
 import com.videodanmaku.common.entity.Result;
 import com.videodanmaku.video.application.convert.VideoInfoDTOConverter;
 import com.videodanmaku.video.application.dto.VideoInfoDTO;
+import com.videodanmaku.video.application.util.LoginUtil;
 import com.videodanmaku.video.domain.entity.VideoInfoBO;
 import com.videodanmaku.video.domain.service.VideoInfoDomainService;
+import com.videodanmaku.video.domain.service.VideoLikedDomainService;
 import com.videodanmaku.video.infra.basic.entity.VideoInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,10 +28,12 @@ public class VideoInfoController {
 
     @Resource
     private VideoInfoDomainService videoInfoDomainService;
+    
+    @Resource
+    private VideoLikedDomainService videoLikedDomainService;
 
     @RequestMapping("/getVideoInfo")
     public Result<VideoInfoDTO> getVideoInfoById(@RequestBody VideoInfoDTO videoInfoDTO){
-
         try {
             if (log.isInfoEnabled()){
                 log.info("VideoInfoController.getVideoInfoById.dto:{}", JSON.toJSONString(videoInfoDTO));
@@ -38,9 +42,24 @@ public class VideoInfoController {
             VideoInfoBO videoInfoBO = VideoInfoDTOConverter.INSTANCE.convertDtoToBO(videoInfoDTO);
             VideoInfoBO videoInfoBo = videoInfoDomainService.getVideoInfoById(videoInfoBO);
             VideoInfoDTO info = VideoInfoDTOConverter.INSTANCE.convertBoToDTO(videoInfoBo);
+
+            System.out.println("loginid:"+LoginUtil.getLoginId());
+            // 从登录信息获取当前用户ID
+            Integer currentUserId = Integer.valueOf(LoginUtil.getLoginId()) ;
+            // 获取点赞状态
+            Boolean isLiked = videoLikedDomainService.getLikeStatus(
+                info.getId().longValue(),
+                currentUserId.longValue()
+            );
+            info.setIsLiked(isLiked);
+
+            // 获取最新点赞数
+            Long likeCount = videoLikedDomainService.getLikeCount(info.getId().longValue());
+            info.setLikes(likeCount.intValue());
+            
             System.out.println(info.getDuration());
             return Result.ok(info);
-        }catch (Exception e){
+        } catch (Exception e){
             log.error("VideoInfoController.getVideoInfoById.error:{}", e.getMessage(), e);
             return Result.fail("查询视频信息失败");
         }

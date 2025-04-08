@@ -27,7 +27,7 @@ public class VideoInfoDTO extends PageInfo implements Serializable {
      */
     private String videoTitle;
 /**
-     * up主id
+     * 视频上传者id
      */
     private Integer upId;
 /**
@@ -82,5 +82,12 @@ public class VideoInfoDTO extends PageInfo implements Serializable {
     private List<String> tags;
 
     private Integer duration;
+    
+    // 在现有的VideoInfoDTO类中添加以下字段
+    
+    /**
+     * 当前用户是否已点赞
+     */
+    private Boolean isLiked;
 }
 
