@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.videodanmaku.video.infra.basic.mapper.VideoCollectionFolderDao">
+
+    <resultMap type="com.videodanmaku.video.infra.basic.entity.VideoCollectionFolder" id="VideoCollectionFolderMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="userId" column="user_id" jdbcType="BIGINT"/>
+        <result property="folderName" column="folder_name" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="coverUrl" column="cover_url" jdbcType="VARCHAR"/>
+        <result property="isPublic" column="is_public" jdbcType="INTEGER"/>
+        <result property="videoCount" column="video_count" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="VideoCollectionFolderMap">
+        select id, user_id, folder_name, description, cover_url, is_public, video_count, create_time, update_time, is_deleted
+        from collection_folder
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="VideoCollectionFolderMap">
+        select id, user_id, folder_name, description, cover_url, is_public, video_count, create_time, update_time, is_deleted
+        from collection_folder
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="folderName != null and folderName != ''">
+                and folder_name like concat('%', #{folderName}, '%')
+            </if>
+            <if test="isPublic != null">
+                and is_public = #{isPublic}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+        order by create_time desc
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from collection_folder
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="folderName != null and folderName != ''">
+                and folder_name like concat('%', #{folderName}, '%')
+            </if>
+            <if test="isPublic != null">
+                and is_public = #{isPublic}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+    </select>
+
+    <!--查询用户的收藏夹列表-->
+    <select id="queryByUserId" resultMap="VideoCollectionFolderMap">
+        select id, user_id, folder_name, description, cover_url, is_public, video_count, create_time, update_time, is_deleted
+        from collection_folder
+        where user_id = #{userId} and is_deleted = #{isDeleted}
+        order by create_time desc
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into collection_folder(user_id, folder_name, description, cover_url, is_public, video_count, create_time, update_time, is_deleted)
+        values (#{userId}, #{folderName}, #{description}, #{coverUrl}, #{isPublic}, #{videoCount}, #{createTime}, #{updateTime}, #{isDeleted})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update collection_folder
+        <set>
+            <if test="folderName != null and folderName != ''">
+                folder_name = #{folderName},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="coverUrl != null">
+                cover_url = #{coverUrl},
+            </if>
+            <if test="isPublic != null">
+                is_public = #{isPublic},
+            </if>
+            <if test="videoCount != null">
+                video_count = #{videoCount},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="isDeleted != null">
+                is_deleted = #{isDeleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <update id="deleteById">
+        update collection_folder set is_deleted = 1 where id = #{id}
+    </update>
+
+</mapper>
