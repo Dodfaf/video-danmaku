@@ -35,7 +35,10 @@ id, user_name, status, avatar, nick_name, email, phone, password, sex, introduce
         where user_name = #{userName}
     </select>
 
-
+<select id="selectAll" resultMap="AuthUserMap">
+    select *
+    from auth_user
+</select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="AuthUserMap">

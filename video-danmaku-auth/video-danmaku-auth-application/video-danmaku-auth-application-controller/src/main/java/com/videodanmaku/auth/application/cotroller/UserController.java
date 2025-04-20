@@ -11,6 +11,7 @@ import com.videodanmaku.auth.domain.service.AuthUserDomainService;
 import com.videodanmaku.common.entity.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -146,7 +147,7 @@ public class UserController {
             if (log.isInfoEnabled()) {
                 log.info("UserController.changeUserStatus.dto:{}", JSON.toJSONString(authUserDTO));
             }
-            checkUserInfo(authUserDTO);
+//            checkUserInfo(authUserDTO);
             Preconditions.checkNotNull(authUserDTO.getStatus(), "用户状态不能为空");
             AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
             return Result.ok(authUserDomainService.update(authUserBO));
@@ -171,4 +172,24 @@ public class UserController {
     }
 
 
+
+    /**
+     * 获取用户列表
+     */
+    @RequestMapping("getUserList")
+    public Result<List<AuthUserDTO>> getUserList(@RequestBody AuthUserDTO authUserDTO) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("UserController.getUserList.dto:{}", JSON.toJSONString(authUserDTO));
+            }
+            
+            AuthUserBO authUserBO = AuthUserDTOConverter.INSTANCE.convertDTOToBO(authUserDTO);
+            List<AuthUserBO> userList = authUserDomainService.getUserList(authUserBO);
+            
+            return Result.ok(AuthUserDTOConverter.INSTANCE.convertBOToDTO(userList));
+        } catch (Exception e) {
+            log.error("UserController.getUserList.error:{}", e.getMessage(), e);
+            return Result.fail("获取用户列表失败");
+        }
+    }
 }

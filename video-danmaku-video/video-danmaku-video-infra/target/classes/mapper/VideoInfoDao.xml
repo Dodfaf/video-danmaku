@@ -264,4 +264,41 @@ id, video_title, up_id, video_url, status, cover_url, likes, favorites, create_b
         </where>
     </select>
 
+    <!-- 根据ID列表查询视频信息 -->
+    <select id="queryByIds" resultMap="VideoInfoMap">
+        select
+            id, video_title, up_id, video_url, status, cover_url, likes,
+            favorites, create_by, create_time, update_by, update_time,
+            is_deleted, duration, description, views
+        from video_info
+        where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        <if test="videoInfo.status != null">
+            and status = #{videoInfo.status}
+        </if>
+        <if test="videoInfo.isDeleted != null">
+            and is_deleted = #{videoInfo.isDeleted}
+        </if>
+        <if test="pageable != null">
+            limit #{pageable.offset}, #{pageable.pageSize}
+        </if>
+    </select>
+    
+    <!-- 根据ID列表统计符合条件的视频数量 -->
+    <select id="countByIds" resultType="java.lang.Long">
+        select count(1)
+        from video_info
+        where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        <if test="videoInfo.status != null">
+            and status = #{videoInfo.status}
+        </if>
+        <if test="videoInfo.isDeleted != null">
+            and is_deleted = #{videoInfo.isDeleted}
+        </if>
+    </select>
 </mapper>

@@ -194,4 +194,32 @@ public class VideoInfoController {
         }
     }
 
+    /**
+     * 根据分类ID获取视频列表
+     *
+     * @param videoInfoDTO 包含分类ID的DTO对象
+     * @return 该分类下的视频列表
+     */
+    @RequestMapping("/getVideosByCategory")
+    public Result<Page<VideoInfoDTO>> getVideosByCategory(@RequestBody VideoInfoDTO videoInfoDTO) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("VideoInfoController.getVideosByCategory.dto:{}", JSON.toJSONString(videoInfoDTO));
+            }
+            Preconditions.checkNotNull(videoInfoDTO.getCategoryId(), "分类ID不能为空！");
+            Preconditions.checkNotNull(videoInfoDTO.getPageNo(), "页码不能为空！");
+            Preconditions.checkNotNull(videoInfoDTO.getPageSize(), "每页大小不能为空！");
+            
+            Page<VideoInfoBO> videoInfoBoList = videoInfoDomainService.getVideosByCategory(
+                videoInfoDTO.getCategoryId(), 
+                videoInfoDTO.getPageNo(), 
+                videoInfoDTO.getPageSize()
+            );
+            
+            return Result.ok(videoInfoBoList.map(VideoInfoDTOConverter.INSTANCE::convertBoToDTO));
+        } catch (Exception e) {
+            log.error("VideoInfoController.getVideosByCategory.error:{}", e.getMessage(), e);
+            return Result.fail("获取分类视频列表失败");
+        }
+    }
 }

@@ -3,21 +3,32 @@ package com.videodanmaku.video.domain.service.impl;
 import com.videodanmaku.video.domain.convert.VideoInfoConverter;
 import com.videodanmaku.video.domain.entity.VideoInfoBO;
 import com.videodanmaku.video.domain.service.VideoInfoDomainService;
+import com.videodanmaku.video.infra.basic.entity.VideoCategoryMapping;
 import com.videodanmaku.video.infra.basic.entity.VideoInfo;
+import com.videodanmaku.video.infra.basic.mapper.VideoCategoryMappingDao;
+import com.videodanmaku.video.infra.basic.mapper.VideoInfoDao;
 import com.videodanmaku.video.infra.basic.service.VideoInfoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class VideoInfoDomainServiceImpl implements VideoInfoDomainService {
     @Resource
     private VideoInfoService videoInfoService;
+    @Resource
+    private VideoCategoryMappingDao videoCategoryMappingDao;
+    @Resource
+    private VideoInfoDao videoInfoDao;
     @Override
     public VideoInfoBO getVideoInfoById(VideoInfoBO videoInfoBO) {
         VideoInfo videoInfo = videoInfoService.queryById(videoInfoBO.getId());
@@ -85,5 +96,53 @@ public class VideoInfoDomainServiceImpl implements VideoInfoDomainService {
         Page<VideoInfo> videoInfoPage = videoInfoService.queryByTitleLike(title, pageRequest);
         // 将实体对象转换为业务对象并返回
         return videoInfoPage.map(VideoInfoConverter.INSTANCE::convertEntityToBO);
+    }
+
+    @Override
+    public Page<VideoInfoBO> getVideosByCategory(Integer categoryId, Integer pageNo, Integer pageSize) {
+        // 创建分页请求
+        PageRequest pageRequest = PageRequest.of(pageNo - 1, pageSize);
+        
+        // 查询该分类下的所有视频ID
+        VideoCategoryMapping mapping = new VideoCategoryMapping();
+        mapping.setCategoryId(categoryId);
+        mapping.setIdDeleted(0); // 未删除的映射
+        
+        List<VideoCategoryMapping> mappings = videoCategoryMappingDao.queryAllByLimit(mapping, null);
+        
+        if (mappings.isEmpty()) {
+            return new PageImpl<>(Collections.emptyList(), pageRequest, 0);
+        }
+        
+        // 提取视频ID列表
+        List<Integer> videoIds = mappings.stream()
+            .map(VideoCategoryMapping::getVideoId)
+            .collect(Collectors.toList());
+        
+        // 构建查询条件
+        VideoInfo videoInfo = new VideoInfo();
+        videoInfo.setStatus(1); // 已发布的视频
+        videoInfo.setIsDeleted(0); // 未删除的视频
+        
+        // 查询视频信息
+        List<VideoInfo> videoInfoList = videoInfoDao.queryByIds(videoIds, videoInfo, pageRequest);
+        long total = videoInfoDao.countByIds(videoIds, videoInfo);
+        
+        // 转换为BO对象
+        List<VideoInfoBO> boList = videoInfoList.stream()
+            .map(this::convertToBO)
+            .collect(Collectors.toList());
+        
+        return new PageImpl<>(boList, pageRequest, total);
+    }
+    
+    // 辅助方法：将VideoInfo转换为VideoInfoBO
+    private VideoInfoBO convertToBO(VideoInfo videoInfo) {
+        if (videoInfo == null) {
+            return null;
+        }
+        VideoInfoBO bo = new VideoInfoBO();
+        BeanUtils.copyProperties(videoInfo, bo);
+        return bo;
     }
 }

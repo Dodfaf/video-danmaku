@@ -97,4 +97,23 @@ public interface VideoInfoDao {
      * @return 总行数
      */
     long countByTitleLike(@Param("title") String title);
+    
+    /**
+     * 根据ID列表查询视频信息
+     * 
+     * @param ids 视频ID列表
+     * @param videoInfo 其他查询条件
+     * @param pageable 分页参数
+     * @return 视频信息列表
+     */
+    List<VideoInfo> queryByIds(@Param("ids") List<Integer> ids, @Param("videoInfo") VideoInfo videoInfo, @Param("pageable") Pageable pageable);
+    
+    /**
+     * 根据ID列表统计符合条件的视频数量
+     * 
+     * @param ids 视频ID列表
+     * @param videoInfo 其他查询条件
+     * @return 视频数量
+     */
+    long countByIds(@Param("ids") List<Integer> ids, @Param("videoInfo") VideoInfo videoInfo);
 }

@@ -59,4 +59,6 @@ public interface AuthUserService {
     boolean deleteById(Integer id);
 
     List<AuthUser> listUserInfoByIds(List<String> userNameList);
+    List<AuthUser> selectAll();
+
 }

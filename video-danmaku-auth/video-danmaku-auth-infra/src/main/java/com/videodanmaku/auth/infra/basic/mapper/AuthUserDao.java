@@ -84,5 +84,8 @@ public interface AuthUserDao {
 
 
     List<AuthUser> listUserInfoByIds(@Param("userNameList") List<String> userNameList);
+    List<AuthUser> selectAll();
+
+
 }
 

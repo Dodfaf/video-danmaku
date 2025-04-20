@@ -3,6 +3,7 @@ package com.videodanmaku.auth.domain.service.impl;
 import cn.dev33.satoken.secure.BCrypt;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.google.common.base.Preconditions;
 import com.videodanmaku.auth.common.enums.AuthUserStatusEnum;
 import com.videodanmaku.auth.common.enums.IsDeletedFlagEnum;
@@ -13,6 +14,7 @@ import com.videodanmaku.auth.domain.service.AuthUserDomainService;
 import com.videodanmaku.auth.infra.basic.entity.AuthUser;
 import com.videodanmaku.auth.infra.basic.service.AuthUserService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -24,6 +26,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 public class AuthUserDomainServiceImpl implements AuthUserDomainService {
@@ -167,5 +170,70 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
         return user;
     }
 
+
+    @Override
+    public List<AuthUserBO> getUserList(AuthUserBO authUserBO) {
+        List<AuthUser> list = authUserService.selectAll();
+
+        // 转换结果
+        if (org.springframework.util.CollectionUtils.isEmpty(list)) {
+            return Collections.emptyList();
+        }
+
+        // 使用Stream API将AuthUser列表转换为AuthUserBO列表
+        return list.stream()
+                .map(AuthUserBOConverter.INSTANCE::convertEntityToBO)
+                .collect(Collectors.toList());
+//        // 构建查询条件
+//        LambdaQueryWrapper<AuthUser> queryWrapper = new LambdaQueryWrapper<>();
+//
+//        // 添加查询条件
+//        if (authUserBO != null) {
+//            // 用户名模糊查询
+//            if (StringUtils.isNotBlank(authUserBO.getUserName())) {
+//                queryWrapper.like(AuthUser::getUserName, authUserBO.getUserName());
+//            }
+//
+//            // 昵称模糊查询
+//            if (StringUtils.isNotBlank(authUserBO.getNickName())) {
+//                queryWrapper.like(AuthUser::getNickName, authUserBO.getNickName());
+//            }
+//
+//            // 状态精确查询
+//            if (authUserBO.getStatus() != null) {
+//                queryWrapper.eq(AuthUser::getStatus, authUserBO.getStatus());
+//            }
+//
+//            // 性别精确查询
+//            if (authUserBO.getSex() != null) {
+//                queryWrapper.eq(AuthUser::getSex, authUserBO.getSex());
+//            }
+//
+//            // 只查询未删除的用户
+//            queryWrapper.eq(AuthUser::getIsDeleted, IsDeletedFlagEnum.UN_DELETED.getCode());
+//        }
+//
+//        // 默认按创建时间降序排序
+//        queryWrapper.orderByDesc(AuthUser::getCreateTime);
+//
+//        // 执行查询
+//        List<AuthUser> userList = authUserService.list(queryWrapper);
+//
+//        // 转换结果
+//        if (CollectionUtils.isEmpty(userList)) {
+//            return Collections.emptyList();
+//        }
+//        return AuthUserBOConverter.INSTANCE.convertEntityToBO(userList);
+//    }
+//
+//    // 辅助方法：将AuthUser转换为AuthUserBO
+//    private AuthUserBO convertToBO(AuthUser authUser) {
+//        if (authUser == null) {
+//            return null;
+//        }
+//        AuthUserBO bo = new AuthUserBO();
+//        BeanUtils.copyProperties(authUser, bo);
+//        return bo;
+    }
 
 }

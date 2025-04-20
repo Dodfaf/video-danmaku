@@ -1,5 +1,6 @@
 package com.videodanmaku.auth.application.dto;
 
+import com.videodanmaku.common.entity.PageInfo;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -12,7 +13,7 @@ import java.util.Date;
  * @since 2025-02-18 11:38:06
  */
 @Data
-public class AuthUserDTO implements Serializable {
+public class AuthUserDTO extends PageInfo implements Serializable {
     private static final long serialVersionUID = -39206367286101534L;
 /**
      * 主键

@@ -31,4 +31,15 @@ public interface VideoInfoDomainService {
      * @return 查询结果
      */
     Page<VideoInfoBO> searchVideoByTitle(String title, Integer pageNo, Integer pageSize);
+
+    // 在VideoInfoDomainService接口中添加以下方法
+    /**
+     * 根据分类ID获取视频列表
+     * 
+     * @param categoryId 分类ID
+     * @param pageNo 页码
+     * @param pageSize 每页大小
+     * @return 分页的视频信息
+     */
+    Page<VideoInfoBO> getVideosByCategory(Integer categoryId, Integer pageNo, Integer pageSize);
 }
