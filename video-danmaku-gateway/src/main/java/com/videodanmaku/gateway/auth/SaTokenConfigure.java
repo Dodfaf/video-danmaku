@@ -36,9 +36,9 @@ public class SaTokenConfigure {
                     return; // 跳过鉴权
                 }
 
-                System.out.println("-------- satoken：" + SaHolder.getRequest().getHeader("satoken"));
-                System.out.println("-------- Satoken：" + SaHolder.getRequest().getHeader("Satoken"));
-                System.out.println(StpUtil.getTokenValue());
+//                System.out.println("-------- satoken：" + SaHolder.getRequest().getHeader("satoken"));
+//                System.out.println("-------- Satoken：" + SaHolder.getRequest().getHeader("Satoken"));
+//                System.out.println(StpUtil.getTokenValue());
 
                 // 登录校验 -- 拦截所有路由，并排除/user/doLogin 用于开放登录 
                 SaRouter.match("/**", "/auth/user/doLogin", r -> StpUtil.checkLogin());

@@ -87,5 +87,6 @@ public interface AuthUserDao {
     List<AuthUser> selectAll();
 
 
+    int isAdmin(Integer id);
 }
 

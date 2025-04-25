@@ -78,6 +78,7 @@ public class VideoInfoBO implements Serializable {
      */
     private Integer views;
 
+    private Integer categoryId;
 
 }
 

@@ -192,4 +192,17 @@ public class UserController {
             return Result.fail("获取用户列表失败");
         }
     }
+
+    @RequestMapping("isAdmin")
+    public Boolean IsAdmin(@RequestParam Integer id) {
+        try {
+//            log.info("UserController.logOut.userName:{}", userName);
+//            Preconditions.checkArgument(!StringUtils.isBlank(userName), "用户名不能为空");
+            return authUserDomainService.isAdmin(id);
+        } catch (Exception e) {
+            log.error("UserController.getUserRole.error:{}", e.getMessage(), e);
+            return false;
+        }
+    }
+
 }

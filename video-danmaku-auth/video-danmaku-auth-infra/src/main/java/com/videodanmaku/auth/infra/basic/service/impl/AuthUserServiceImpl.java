@@ -94,4 +94,10 @@ public class AuthUserServiceImpl implements AuthUserService {
     public List<AuthUser> selectAll() {
         return authUserDao.selectAll();
     }
+
+    @Override
+
+    public boolean isAdmin(Integer id){
+        return authUserDao.isAdmin(id)>0;
+    };
 }

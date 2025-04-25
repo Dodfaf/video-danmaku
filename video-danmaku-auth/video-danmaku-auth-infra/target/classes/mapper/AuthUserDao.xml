@@ -251,5 +251,11 @@ is_deleted = values(is_deleted)
             #{item}
         </foreach>
     </select>
+
+    <select id="isAdmin" resultType="int">
+        select *
+        from auth_user_role
+        where user_id = #{id} and  role_id = 1
+    </select>
 </mapper>
 

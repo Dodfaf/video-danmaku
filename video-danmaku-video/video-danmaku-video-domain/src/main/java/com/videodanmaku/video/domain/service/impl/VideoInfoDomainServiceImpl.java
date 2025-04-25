@@ -61,6 +61,11 @@ public class VideoInfoDomainServiceImpl implements VideoInfoDomainService {
 
         VideoInfo videoInfo = VideoInfoConverter.INSTANCE.convertBoToEntity(videoInfoBO);
         videoInfoService.insert(videoInfo);
+        VideoCategoryMapping videoCategoryMapping = new VideoCategoryMapping();
+        videoCategoryMapping.setCategoryId(videoInfoBO.getCategoryId());
+        videoCategoryMapping.setVideoId(videoInfo.getId());
+        videoCategoryMapping.setIsDeleted(0);
+        videoCategoryMappingDao.insert(videoCategoryMapping);
         System.out.println("插入数据返回id: "+videoInfo.getId());
         return true;
     }
@@ -106,9 +111,10 @@ public class VideoInfoDomainServiceImpl implements VideoInfoDomainService {
         // 查询该分类下的所有视频ID
         VideoCategoryMapping mapping = new VideoCategoryMapping();
         mapping.setCategoryId(categoryId);
-        mapping.setIdDeleted(0); // 未删除的映射
+        mapping.setIsDeleted(0); // 未删除的映射
         
-        List<VideoCategoryMapping> mappings = videoCategoryMappingDao.queryAllByLimit(mapping, null);
+        // 修改这一行，传入正确的分页参数
+        List<VideoCategoryMapping> mappings = videoCategoryMappingDao.queryAllByLimit(mapping, pageRequest);
         
         if (mappings.isEmpty()) {
             return new PageImpl<>(Collections.emptyList(), pageRequest, 0);

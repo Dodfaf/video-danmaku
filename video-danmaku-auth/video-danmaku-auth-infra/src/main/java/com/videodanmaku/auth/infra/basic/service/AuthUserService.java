@@ -61,4 +61,6 @@ public interface AuthUserService {
     List<AuthUser> listUserInfoByIds(List<String> userNameList);
     List<AuthUser> selectAll();
 
+    boolean isAdmin(Integer id);
+
 }

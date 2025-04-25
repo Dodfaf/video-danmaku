@@ -35,6 +35,9 @@ public interface AuthUserDomainService {
      * @return 用户信息列表
      */
     List<AuthUserBO> getUserList(AuthUserBO authUserBO);
+
+
+    boolean isAdmin(Integer id);
     /**
      * 获取用户列表
      * 

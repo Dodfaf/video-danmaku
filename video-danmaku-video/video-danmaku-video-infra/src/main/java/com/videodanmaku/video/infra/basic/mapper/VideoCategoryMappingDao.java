@@ -21,6 +21,7 @@ public interface VideoCategoryMappingDao {
      */
     VideoCategoryMapping queryById(Integer id);
 
+
     /**
      * 查询指定行数据
      *
@@ -28,7 +29,8 @@ public interface VideoCategoryMappingDao {
      * @param pageable         分页对象
      * @return 对象列表
      */
-    List<VideoCategoryMapping> queryAllByLimit(VideoCategoryMapping videoCategoryMapping, @Param("pageable") Pageable pageable);
+
+    List<VideoCategoryMapping> queryAllByLimit(@Param("videoCategoryMapping") VideoCategoryMapping videoCategoryMapping, @Param("pageable") Pageable pageable);
 
     /**
      * 统计总行数

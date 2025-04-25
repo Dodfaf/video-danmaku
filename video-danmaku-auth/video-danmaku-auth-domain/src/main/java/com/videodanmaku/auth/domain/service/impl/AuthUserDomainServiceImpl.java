@@ -236,4 +236,9 @@ public class AuthUserDomainServiceImpl implements AuthUserDomainService {
 //        return bo;
     }
 
+    @Override
+    public boolean isAdmin(Integer id) {
+        return authUserService.isAdmin(id);
+    }
+
 }

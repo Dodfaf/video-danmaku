@@ -21,7 +21,7 @@ public class VideoCategoryMapping implements Serializable {
      */
     private Integer categoryId;
 
-    private Integer idDeleted;
+    private Integer isDeleted;
 
 
     public Integer getId() {
@@ -48,12 +48,12 @@ public class VideoCategoryMapping implements Serializable {
         this.categoryId = categoryId;
     }
 
-    public Integer getIdDeleted() {
-        return idDeleted;
+    public Integer getIsDeleted() {
+        return isDeleted;
     }
 
-    public void setIdDeleted(Integer idDeleted) {
-        this.idDeleted = idDeleted;
+    public void setIsDeleted(Integer isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
 }

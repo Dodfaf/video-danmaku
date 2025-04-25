@@ -6,13 +6,13 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="videoId" column="video_id" jdbcType="INTEGER"/>
         <result property="categoryId" column="category_id" jdbcType="INTEGER"/>
-        <result property="idDeleted" column="id_deleted" jdbcType="INTEGER"/>
+        <result property="isDeleted" column="id_deleted" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="VideoCategoryMappingMap">
         select
-id, video_id, category_id, id_deleted
+        id, video_id, category_id, is_deleted
         from video_category_mapping
         where id = #{id}
     </select>
@@ -20,20 +20,20 @@ id, video_id, category_id, id_deleted
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="VideoCategoryMappingMap">
         select
-id, video_id, category_id, id_deleted
+            id, video_id, category_id, is_deleted
         from video_category_mapping
         <where>
-            <if test="id != null">
-                and id = #{id}
+            <if test="videoCategoryMapping.id != null">
+                and id = #{videoCategoryMapping.id}
             </if>
-            <if test="videoId != null">
-                and video_id = #{videoId}
+            <if test="videoCategoryMapping.videoId != null">
+                and video_id = #{videoCategoryMapping.videoId}
             </if>
-            <if test="categoryId != null">
-                and category_id = #{categoryId}
+            <if test="videoCategoryMapping.categoryId != null">
+                and category_id = #{videoCategoryMapping.categoryId}
             </if>
-            <if test="idDeleted != null">
-                and id_deleted = #{idDeleted}
+            <if test="videoCategoryMapping.isDeleted != null">
+                and is_deleted = #{videoCategoryMapping.isDeleted}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -61,12 +61,12 @@ id, video_id, category_id, id_deleted
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into video_category_mapping(video_id, category_id, id_deleted)
-        values (#{videoId}, #{categoryId}, #{idDeleted})
+        insert into video_category_mapping(video_id, category_id, is_deleted)
+        values (#{videoId}, #{categoryId}, #{isDeleted})
     </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into video_category_mapping(video_id, category_id, id_deleted)
+        insert into video_category_mapping(video_id, category_id, is_deleted)
         values
         <foreach collection="entities" item="entity" separator=",">
         (#{entity.videoId}, #{entity.categoryId}, #{entity.idDeleted})
@@ -74,7 +74,7 @@ id, video_id, category_id, id_deleted
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into video_category_mapping(video_id, category_id, id_deleted)
+        insert into video_category_mapping(video_id, category_id, is_deleted)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.videoId}, #{entity.categoryId}, #{entity.idDeleted})
@@ -82,7 +82,7 @@ id, video_id, category_id, id_deleted
         on duplicate key update
 video_id = values(video_id),
 category_id = values(category_id),
-id_deleted = values(id_deleted)
+is_deleted = values(is_deleted)
     </insert>
 
     <!--通过主键修改数据-->

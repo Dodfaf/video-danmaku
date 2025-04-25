@@ -6,7 +6,7 @@ import javax.annotation.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-04-07T23:12:21+0800",
+    date = "2025-04-25T22:03:38+0800",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 1.8.0_422 (Amazon.com Inc.)"
 )
 public class VideoInfoDTOConverterImpl implements VideoInfoDTOConverter {
@@ -34,6 +34,7 @@ public class VideoInfoDTOConverterImpl implements VideoInfoDTOConverter {
         videoInfoBO.setDuration( subjectInfoDTO.getDuration() );
         videoInfoBO.setDescription( subjectInfoDTO.getDescription() );
         videoInfoBO.setViews( subjectInfoDTO.getViews() );
+        videoInfoBO.setCategoryId( subjectInfoDTO.getCategoryId() );
 
         return videoInfoBO;
     }
@@ -60,6 +61,7 @@ public class VideoInfoDTOConverterImpl implements VideoInfoDTOConverter {
         videoInfoDTO.setIsDeleted( subjectInfoBO.getIsDeleted() );
         videoInfoDTO.setViews( subjectInfoBO.getViews() );
         videoInfoDTO.setDescription( subjectInfoBO.getDescription() );
+        videoInfoDTO.setCategoryId( subjectInfoBO.getCategoryId() );
         videoInfoDTO.setDuration( subjectInfoBO.getDuration() );
 
         return videoInfoDTO;
