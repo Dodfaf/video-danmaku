@@ -33,4 +33,8 @@ public class VideoCollectionRecordDTO {
      * 收藏时间
      */
     private Date createTime;
+
+    private String    videoTitle;
+    private String  coverUrl;
+    private Integer  duration;
 }

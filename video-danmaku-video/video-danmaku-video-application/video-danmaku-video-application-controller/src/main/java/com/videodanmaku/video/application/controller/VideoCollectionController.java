@@ -231,14 +231,16 @@ public class VideoCollectionController {
      * 获取收藏夹中的视频ID列表
      */
     @GetMapping("/getFolderVideos")
-    public Result<List<Long>> getFolderVideos(@RequestParam("folderId") Long folderId) {
+    public Result<List<VideoCollectionRecordDTO>> getFolderVideos(@RequestParam("folderId") Long folderId) {
         try {
             if (log.isInfoEnabled()) {
                 log.info("获取收藏夹视频列表入参: folderId={}", folderId);
             }
             Preconditions.checkArgument(!Objects.isNull(folderId), "收藏夹ID不能为空");
             
-            List<Long> result = videoCollectionDomainService.getFolderVideos(folderId);
+            List<VideoCollectionRecordBO> recordBOList = videoCollectionDomainService.getFolderVideos(folderId);
+            List<VideoCollectionRecordDTO> result = VideoCollectionConverter.toRecordDTOList(recordBOList);
+            
             if (log.isInfoEnabled()) {
                 log.info("获取收藏夹视频列表出参: {}", JSON.toJSONString(result));
             }

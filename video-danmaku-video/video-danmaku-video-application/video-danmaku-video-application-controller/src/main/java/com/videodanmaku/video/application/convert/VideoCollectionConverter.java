@@ -56,11 +56,12 @@ public class VideoCollectionConverter {
      * 收藏记录BO转DTO
      */
     public static VideoCollectionRecordDTO toDTO(VideoCollectionRecordBO bo) {
-        if (bo == null) {
-            return null;
-        }
         VideoCollectionRecordDTO dto = new VideoCollectionRecordDTO();
         BeanUtils.copyProperties(bo, dto);
+        // 新增字段拷贝
+        dto.setVideoTitle(bo.getVideoTitle());
+        dto.setCoverUrl(bo.getCoverUrl());
+        dto.setDuration(bo.getDuration());
         return dto;
     }
 
@@ -74,5 +75,16 @@ public class VideoCollectionConverter {
         VideoCollectionRecordBO bo = new VideoCollectionRecordBO();
         BeanUtils.copyProperties(dto, bo);
         return bo;
+    }
+
+    public static List<VideoCollectionRecordDTO> toRecordDTOList(List<VideoCollectionRecordBO> boList) {
+        if (boList == null) {
+            return null;
+        }
+        List<VideoCollectionRecordDTO> dtoList = new ArrayList<>(boList.size());
+        for (VideoCollectionRecordBO bo : boList) {
+            dtoList.add(toDTO(bo));
+        }
+        return dtoList;
     }
 }

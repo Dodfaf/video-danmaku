@@ -74,7 +74,7 @@ public interface VideoCollectionDomainService {
      * @param folderId 收藏夹ID
      * @return 视频ID列表
      */
-    List<Long> getFolderVideos(Long folderId);
+    List<VideoCollectionRecordBO> getFolderVideos(Long folderId);
     
     /**
      * 检查视频是否已被用户收藏

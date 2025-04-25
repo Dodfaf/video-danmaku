@@ -2,11 +2,14 @@ package com.videodanmaku.video.domain.service.impl;
 
 import com.videodanmaku.video.domain.entity.VideoCollectionFolderBO;
 import com.videodanmaku.video.domain.entity.VideoCollectionRecordBO;
+import com.videodanmaku.video.domain.entity.VideoInfoBO;
 import com.videodanmaku.video.domain.service.VideoCollectionDomainService;
+import com.videodanmaku.video.domain.service.VideoInfoDomainService;
 import com.videodanmaku.video.infra.basic.entity.VideoCollectionFolder;
 import com.videodanmaku.video.infra.basic.entity.VideoCollectionRecord;
 import com.videodanmaku.video.infra.basic.service.VideoCollectionFolderService;
 import com.videodanmaku.video.infra.basic.service.VideoCollectionRecordService;
+import com.videodanmaku.video.infra.basic.service.VideoInfoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 视频收藏服务实现类
@@ -28,6 +32,8 @@ public class VideoCollectionDomainServiceImpl implements VideoCollectionDomainSe
 
     @Resource
     private VideoCollectionRecordService videoCollectionRecordService;
+    @Resource
+    private VideoInfoDomainService videoInfoDomainService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -172,8 +178,23 @@ public class VideoCollectionDomainServiceImpl implements VideoCollectionDomainSe
     }
 
     @Override
-    public List<Long> getFolderVideos(Long folderId) {
-        return videoCollectionRecordService.queryVideoIdsByFolderId(folderId);
+    public List<VideoCollectionRecordBO> getFolderVideos(Long folderId) {
+        List<VideoCollectionRecord> records = videoCollectionRecordService.queryByFolderId(folderId);
+        
+        return records.stream().map(record -> {
+            VideoCollectionRecordBO bo = new VideoCollectionRecordBO();
+            BeanUtils.copyProperties(record, bo);
+            VideoInfoBO videoInfoBO = new VideoInfoBO();
+            videoInfoBO.setId(Math.toIntExact(record.getVideoId()));
+            // 获取视频详细信息
+            VideoInfoBO videoInfo = videoInfoDomainService.getVideoInfoById(videoInfoBO);
+            if(videoInfo != null) {
+                bo.setVideoTitle(videoInfo.getVideoTitle());
+                bo.setCoverUrl(videoInfo.getCoverUrl());
+                bo.setDuration(videoInfo.getDuration());
+            }
+            return bo;
+        }).collect(Collectors.toList());
     }
 
     @Override

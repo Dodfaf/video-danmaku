@@ -33,4 +33,9 @@ public class VideoCollectionRecordBO {
      * 收藏时间
      */
     private Date createTime;
+    
+    // 新增视频信息字段
+    private String videoTitle;
+    private String coverUrl;
+    private Integer duration;
 }
