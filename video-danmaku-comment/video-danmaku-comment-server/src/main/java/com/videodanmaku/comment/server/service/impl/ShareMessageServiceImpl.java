@@ -31,9 +31,6 @@ import java.util.stream.Collectors;
  * <p>
  * 消息表 服务实现类
  * </p>
- *
- * @author ChickenWing
- * @since 2024/05/18
  */
 @Service
 public class ShareMessageServiceImpl extends ServiceImpl<ShareMessageMapper, ShareMessage> implements ShareMessageService {

@@ -23,9 +23,6 @@ import java.util.Objects;
  * <p>
  * 动态信息 前端控制器
  * </p>
- *
- * @author ChickenWing
- * @since 2024/05/16
  */
 @Slf4j
 @RestController

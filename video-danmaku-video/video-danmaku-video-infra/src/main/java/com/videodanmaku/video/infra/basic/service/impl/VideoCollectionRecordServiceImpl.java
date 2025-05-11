@@ -1,5 +1,6 @@
 package com.videodanmaku.video.infra.basic.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.videodanmaku.video.infra.basic.entity.VideoCollectionRecord;
 import com.videodanmaku.video.infra.basic.mapper.VideoCollectionRecordDao;
 import com.videodanmaku.video.infra.basic.service.VideoCollectionRecordService;
@@ -101,7 +102,8 @@ public class VideoCollectionRecordServiceImpl implements VideoCollectionRecordSe
      */
     @Override
     public VideoCollectionRecord queryByUserIdAndVideoId(Long userId, Long videoId) {
-        return this.videoCollectionRecordDao.queryByUserIdAndVideoId(userId, videoId, 0);
+        // Use the DAO directly to query the record
+        return this.videoCollectionRecordDao.queryByUserIdAndVideoId(userId, videoId, 0); // 0 indicates not deleted
     }
 
     /**

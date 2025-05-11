@@ -202,4 +202,27 @@ public class VideoCollectionDomainServiceImpl implements VideoCollectionDomainSe
         VideoCollectionRecord record = videoCollectionRecordService.queryByUserIdAndVideoId(userId, videoId);
         return record != null;
     }
+
+    @Override
+    public VideoCollectionRecordBO getCollectionRecord(Long videoId, Long userId) {
+        // 查询用户对该视频的收藏记录
+        VideoCollectionRecord record = videoCollectionRecordService.queryByUserIdAndVideoId(userId, videoId);
+        if (record == null) {
+            return null;
+        }
+        
+        // 转换为业务对象
+        VideoCollectionRecordBO bo = new VideoCollectionRecordBO();
+        BeanUtils.copyProperties(record, bo);
+        
+        // 如果需要，可以在这里添加视频信息
+        // VideoInfoBO videoInfo = videoInfoDomainService.getVideoInfoById(videoId);
+        // if (videoInfo != null) {
+        //     bo.setVideoTitle(videoInfo.getVideoTitle());
+        //     bo.setCoverUrl(videoInfo.getCoverUrl());
+        //     bo.setDuration(videoInfo.getDuration());
+        // }
+        
+        return bo;
+    }
 }

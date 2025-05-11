@@ -12,9 +12,6 @@ import java.util.Objects;
 
 /**
  * Feign请求拦截器
- *
- * @author: ChickenWing
- * @date: 2023/12/3
  */
 @Component
 public class FeignRequestInterceptor implements RequestInterceptor {

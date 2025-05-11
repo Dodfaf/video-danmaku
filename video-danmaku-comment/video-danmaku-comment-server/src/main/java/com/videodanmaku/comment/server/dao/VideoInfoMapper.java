@@ -9,9 +9,6 @@ import org.apache.ibatis.annotations.Param;
  * <p>
  * 动态信息 Mapper 接口
  * </p>
- *
- * @author ChickenWing
- * @since 2024/05/16
  */
 public interface VideoInfoMapper extends BaseMapper<VideoInfo> {
 

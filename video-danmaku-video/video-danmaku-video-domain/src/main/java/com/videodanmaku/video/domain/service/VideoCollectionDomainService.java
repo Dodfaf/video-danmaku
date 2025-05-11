@@ -84,4 +84,13 @@ public interface VideoCollectionDomainService {
      * @return 是否已收藏
      */
     boolean isVideoCollected(Long videoId, Long userId);
+    
+    /**
+     * 获取用户对视频的收藏记录
+     * 
+     * @param videoId 视频ID
+     * @param userId 用户ID
+     * @return 收藏记录
+     */
+    VideoCollectionRecordBO getCollectionRecord(Long videoId, Long userId);
 }

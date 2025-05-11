@@ -12,9 +12,6 @@ import com.videodanmaku.comment.server.entity.po.ShareMoment;
  * <p>
  * 动态信息 服务类
  * </p>
- *
- * @author ChickenWing
- * @since 2024/05/16
  */
 public interface ShareMomentService extends IService<ShareMoment> {
 

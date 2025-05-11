@@ -38,9 +38,6 @@ import java.util.stream.Collectors;
  * <p>
  * 评论及回复信息 服务实现类
  * </p>
- *
- * @author ChickenWing
- * @since 2024/05/16
  */
 @Service
 public class ShareCommentReplyServiceImpl extends ServiceImpl<ShareCommentReplyMapper, ShareCommentReply> implements ShareCommentReplyService {

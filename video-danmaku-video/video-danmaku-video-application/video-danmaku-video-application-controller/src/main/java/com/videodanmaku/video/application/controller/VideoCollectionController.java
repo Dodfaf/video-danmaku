@@ -204,7 +204,7 @@ public class VideoCollectionController {
     /**
      * 取消收藏
      */
-    @PostMapping("/cancelCollection")
+    @RequestMapping("/cancelCollection")
     public Result<Boolean> cancelCollection(@RequestParam("recordId") Long recordId, @RequestParam("userId") Long userId) {
         try {
             if (log.isInfoEnabled()) {
@@ -277,6 +277,39 @@ public class VideoCollectionController {
         } catch (Exception e) {
             log.error("检查视频是否已收藏异常", e);
             return Result.fail("检查视频是否已收藏失败");
+        }
+    }
+
+    /**
+     * 获取视频收藏记录
+     */
+    @GetMapping("/getCollectionRecord")
+    public Result<VideoCollectionRecordDTO> getCollectionRecord(@RequestParam("videoId") Long videoId, @RequestParam("userId") Long userId) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("获取视频收藏记录入参: videoId={}, userId={}", videoId, userId);
+            }
+            Preconditions.checkArgument(!Objects.isNull(videoId), "视频ID不能为空");
+            Preconditions.checkArgument(!Objects.isNull(userId), "用户ID不能为空");
+            
+            // 获取收藏记录详情
+            VideoCollectionRecordBO recordBO = videoCollectionDomainService.getCollectionRecord(videoId, userId);
+            
+            if (recordBO == null) {
+                return Result.ok(null);
+            }
+            
+            VideoCollectionRecordDTO result = VideoCollectionConverter.toDTO(recordBO);
+            if (log.isInfoEnabled()) {
+                log.info("获取视频收藏记录出参: {}", JSON.toJSONString(result));
+            }
+            return Result.ok(result);
+        } catch (IllegalArgumentException e) {
+            log.error("参数异常: {}", e.getMessage(), e);
+            return Result.fail(e.getMessage());
+        } catch (Exception e) {
+            log.error("获取视频收藏记录异常", e);
+            return Result.fail("获取视频收藏记录失败");
         }
     }
 }

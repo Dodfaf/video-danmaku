@@ -2,9 +2,6 @@ package com.videodanmaku.comment.api.common;
 
 /**
  * 分页请求实体
- *
- * @author: ChickenWing
- * @date: 2023/10/5
  */
 public class PageInfo {
 

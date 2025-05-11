@@ -6,9 +6,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 登录上下文对象
- *
- * @author: ChickenWing
- * @date: 2023/11/26
  */
 public class LoginContextHolder {
 

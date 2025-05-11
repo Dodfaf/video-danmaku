@@ -70,6 +70,13 @@ public interface VideoCollectionRecordService {
      * @param videoId 视频ID
      * @return 收藏记录
      */
+    /**
+     * 根据用户ID和视频ID查询收藏记录
+     * 
+     * @param userId 用户ID
+     * @param videoId 视频ID
+     * @return 收藏记录
+     */
     VideoCollectionRecord queryByUserIdAndVideoId(Long userId, Long videoId);
 
     /**

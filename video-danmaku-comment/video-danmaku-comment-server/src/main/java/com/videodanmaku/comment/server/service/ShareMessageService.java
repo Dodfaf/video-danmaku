@@ -11,9 +11,6 @@ import com.videodanmaku.comment.server.entity.po.ShareMessage;
  * <p>
  * 消息表 服务类
  * </p>
- *
- * @author ChickenWing
- * @since 2024/05/18
  */
 public interface ShareMessageService extends IService<ShareMessage> {
 

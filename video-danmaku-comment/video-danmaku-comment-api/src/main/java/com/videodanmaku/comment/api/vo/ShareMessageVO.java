@@ -11,9 +11,6 @@ import java.util.Map;
  * <p>
  * 消息表
  * </p>
- *
- * @author ChickenWing
- * @since 2024/05/18
  */
 @Getter
 @Setter

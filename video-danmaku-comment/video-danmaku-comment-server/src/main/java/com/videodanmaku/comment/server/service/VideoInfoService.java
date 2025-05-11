@@ -13,9 +13,6 @@ import com.videodanmaku.comment.server.entity.po.VideoInfo;
  * <p>
  * 动态信息 服务类
  * </p>
- *
- * @author ChickenWing
- * @since 2024/05/16
  */
 public interface VideoInfoService extends IService<VideoInfo> {
 

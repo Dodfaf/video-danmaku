@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 测试controller启动问题
- *
- * @author: ChickenWing
- * @date: 2024/3/2
  */
 @RestController
 @RequestMapping("/circle/")

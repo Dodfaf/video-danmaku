@@ -85,9 +85,9 @@ id, video_title, up_id, video_url, status, cover_url, likes, favorites, create_b
             <if test="videoInfo.updateTime != null">
                 and update_time = #{videoInfo.updateTime}
             </if>
-            <if test="videoInfo.isDeleted != null">
-                and is_deleted = #{videoInfo.isDeleted}
-            </if>
+<!--            <if test="videoInfo.isDeleted != null">-->
+                and is_deleted = 0
+<!--            </if>-->
             <if test="videoInfo.duration != null">
                 and duration = #{videoInfo.duration}
             </if>
